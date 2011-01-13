@@ -6,11 +6,14 @@
         Purpose of the stylesheet follows.
 */
 
-.visualization-orgchart-node.avatar{
-    float:left
+.org_chart_avatar{
+    
 }
 
-.visualization-orgchart-node.content{
+.org_chart_content{
     float:right;
-    width:90px
+    width:90px;
+}
+.org_chart_content p{
+    color:#CCC;
 }
