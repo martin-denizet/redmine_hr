@@ -1,0 +1,18 @@
+<%= error_messages_for 'position' %>
+
+<!--[form:position]-->
+<div class="box tabular">
+  <p><%= f.text_field :title, :required => true, :size => 25  %></p>
+
+  <p><%= f.select :manager_id, positions_for_select(@position), :required => true, :selected => @position.manager_id %></p>
+
+  <p>
+    <% users_list().each do |user| %>
+
+      <%= check_box_tag "user_id[]", user.id, @position.users.include?(user) %> <%=h user %>
+
+    <% end %>
+  </p>
+</div>
+
+<!--[eoform:position]-->

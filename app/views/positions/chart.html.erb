@@ -1,0 +1,35 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<% end %>
+
+<h2><%= hr_index %> &#187; <%= l(:label_organization_chart)%></h2>
+
+<script type='text/javascript'>
+  google.load('visualization', '1', {packages:['orgchart']});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Manager');
+    data.addColumn('string', 'ToolTip');
+
+    data.addRows([
+<% @user_positions.each do |user_position| %>
+        [{v:'<%= user_position.position_id%>',
+            f:'<div class="avatar"><%=  avatar(user_position.user, :size => "60") %></div>\n\
+            <div class="content"><p><%= link_to_user user_position.user %></p><p><%= user_position.position.title %></p></div>'},
+          '<%= user_position.position.manager_id==0? '' : user_position.position.manager_id %>',
+          '<%=h user_position.user %>'],
+
+<% end %>
+
+    ]);
+
+
+    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+    chart.draw(data, {allowHtml:true});
+  }
+</script>
+
+<div id='chart_div'></div>

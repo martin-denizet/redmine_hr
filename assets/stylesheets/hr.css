@@ -1,0 +1,16 @@
+/* 
+    Document   : hr
+    Created on : Jan 13, 2011, 1:20:47 AM
+    Author     : martin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.visualization-orgchart-node.avatar{
+    float:left
+}
+
+.visualization-orgchart-node.content{
+    float:right;
+    width:90px
+}

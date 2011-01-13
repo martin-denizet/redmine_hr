@@ -1,0 +1,24 @@
+<div class="contextual">
+  <%= link_to l(:label_position_new), {:action => 'new'}, :class => 'icon icon-add' %>
+</div>
+<h2><%= hr_index %> &#187 <%= l(:label_position_plural) %></h2>
+
+<% @positions.each do |position| %>
+  <p>
+    <%=  position[:title]%>
+
+    Managed by:
+
+    <%= (position.manager==NIL)?l(:label_nobody) : position.manager %>
+
+
+    
+    <%=  link_to(l(:button_edit), {:controller => 'positions', :action => 'edit', :id => position}, :class => 'icon icon-edit') %>
+
+    <% position.users.each do |user| %>
+    <p>
+      <%= link_to_user(user) %>
+    </p>
+  <% end %>
+  </p>
+<% end %>
