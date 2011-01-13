@@ -24,6 +24,15 @@ class PositionsController < ApplicationController
       @position.title = params[:position][:title]
       @position.manager_id = params[:position][:manager_id]
       if @position.save
+        (params[:user_id] || []).each { |user_id|
+        #        news.each { |new|
+        #          @role.workflows.build(:tracker_id => @tracker.id, :old_status_id => old, :new_status_id => new)
+        #        }
+        user_position=UserPosition.new
+        user_position.position_id=@position.id
+        user_position.user_id=user_id
+        user_position.save
+        }
         flash[:notice] = l(:notice_successful_create)
         redirect_to(params[:continue] ? {:controller => 'positions', :action => 'new'} :
             {:controller => 'positions', :action => 'index', :id => @position})

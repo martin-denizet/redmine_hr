@@ -8,9 +8,9 @@
 
   <p>
     <% users_list().each do |user| %>
-
+    <p>
       <%= check_box_tag "user_id[]", user.id, @position.users.include?(user) %> <%=h user %>
-
+    </p>
     <% end %>
   </p>
 </div>
