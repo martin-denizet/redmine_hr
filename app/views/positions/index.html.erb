@@ -1,24 +1,44 @@
-<div class="contextual">
-  <%= link_to l(:label_position_new), {:action => 'new'}, :class => 'icon icon-add' %>
-</div>
+<% if authorized_globally('positions','new') %>
+  <div class="contextual">
+    <%= link_to l(:label_position_new), {:action => 'new'}, :class => 'icon icon-add' %>
+  </div>
+<% end %>
 <h2><%= hr_index %> &#187 <%= l(:label_position_plural) %></h2>
 
-<% @positions.each do |position| %>
-  <p>
-    <%=  position[:title]%>
-
-    Managed by:
-
-    <%= (position.manager==NIL)?l(:label_nobody) : position.manager %>
-
-
-    
-    <%=  link_to(l(:button_edit), {:controller => 'positions', :action => 'edit', :id => position}, :class => 'icon icon-edit') %>
-
-    <% position.users.each do |user| %>
-    <p>
-      <%= link_to_user(user) %>
-    </p>
-  <% end %>
-  </p>
+<% if @positions.any? %>
+  <table class="list positions">
+    <thead><tr>
+        <th><%=l(:label_position)%></th>
+        <th><%=l(:label_user_plural)%></th>
+        <th></th>
+      </tr></thead>
+    <tbody>
+      <% @positions.each do |position| %>
+        <tr class="<%= cycle 'odd', 'even' %>">
+          <td>
+            <%=  position[:title]%>
+            <%= l(:managed_by)%>
+            <%= (position.manager==NIL)?l(:label_nobody) : position.manager %>
+          </td>
+          <td align="center">
+            <% position.users.each do |user| %>
+              <p>
+                <%= link_to_user(user) %>
+              </p>
+            <% end %>
+          </td>
+          <td class="buttons">
+            <% if authorized_globally('positions','edit') %>
+              <%= link_to  l(:button_edit), {:controller => 'positions', :action => 'edit', :id => position}, :class => 'icon icon-edit' %>
+            <% end %>
+            <% if authorized_globally('positions','destroy') %>
+              <%= link_to_if authorized_globally('positions','destroy'), l(:button_delete),  {:controller => 'positions', :action => 'destroy', :id => position}, :confirm => l(:text_are_you_sure),  :class => 'icon icon-del' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
 <% end %>

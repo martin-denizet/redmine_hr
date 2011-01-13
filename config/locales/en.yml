@@ -7,3 +7,4 @@ en:
   label_organization_chart: "Organization Chart"
   label_nobody: "Nobody"
   field_manager: "Manager"
+  managed_by: "Managed By"

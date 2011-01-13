@@ -1,7 +1,11 @@
-<h2>HR</h2>
-<p>
-<%= positions_index %>
-</p>
-<p>
-  <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart') %>
-</p>
+<h2><%= l(:label_hr) %></h2>
+<% if authorized_globally('positions','index') %>
+  <p>
+    <%= positions_index %>
+  </p>
+<% end %>
+<% if authorized_globally('positions','chart') %>
+  <p>
+    <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart') %>
+  </p>
+<% end %>
