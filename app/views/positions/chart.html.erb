@@ -18,9 +18,10 @@
   <% managers=[] %>
   <% @user_positions.each do |user_position| %>
           [{
-    <%  managers[user_position.position.manager_id]='1' %>
+    
 
-    <% if user_position.position.subordinates.any? %>
+        <% if user_position.position.subordinates.any? %>
+          <%  managers[user_position.position.manager_id]='1' %>
                 v:'<%= user_position.position_id %>',
     <% else %>
                 v:'<%= user_position.position_id %>_<%= user_position.user_id %>',
@@ -40,7 +41,6 @@
       chart.draw(data, {allowHtml:true});
     }
   </script>
-  <h2>depth<%=  managers.length %></h2>
   <div id='chart_div'></div>
 <% else %>
   <p class="nodata"><%= l(:label_no_data) %></p>
