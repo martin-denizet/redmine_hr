@@ -1,6 +1,8 @@
 class Position < ActiveRecord::Base
   unloadable
 
+  acts_as_list
+
   has_many :subordinates, :class_name => "Position",
     :foreign_key => "manager_id"
   belongs_to :manager, :class_name => "Position"

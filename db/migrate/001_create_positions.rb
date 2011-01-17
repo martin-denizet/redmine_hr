@@ -3,6 +3,7 @@ class CreatePositions < ActiveRecord::Migration
     create_table :positions do |t|
       t.column :title, :string
       t.column :manager_id, :integer
+      t.column :position, :integer
     end
   end
 

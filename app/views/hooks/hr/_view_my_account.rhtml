@@ -1,0 +1,7 @@
+<h3><%= l(:label_user_details) %></h3>
+<% user_details = UserDetails.find(:first,:conditions => ["user_id=?", @user]) %>
+<% if user_details!=nil %>
+  <%  user_details.custom_field_values.select(&:editable?).each do |value| %>
+    <p><%= custom_field_tag_with_label :user_details, value %></p>
+  <% end %>
+<% end %>

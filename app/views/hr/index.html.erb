@@ -9,3 +9,8 @@
     <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart') %>
   </p>
 <% end %>
+<% if authorized_globally('positions','contact_list') %>
+  <p>
+    <%= link_to l(:label_contact_list), url_for(:controller => 'positions', :action => 'contact_list') %>
+  </p>
+<% end %>

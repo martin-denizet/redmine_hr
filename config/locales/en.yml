@@ -8,3 +8,6 @@ en:
   label_nobody: "Nobody"
   field_manager: "Manager"
   managed_by: "Managed By"
+  label_user_details: "User Details"
+  label_contact_list: "Contact List"
+  label_avatar: "Avatar"

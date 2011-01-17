@@ -1,0 +1,11 @@
+<h3><%= l(:label_user_details) %></h3>
+<ul>
+  <%  user_details = UserDetails.find(:first,:conditions => ["user_id=?", @user]) %>
+  <% if user_details!=nil %>
+    <% for custom_value in user_details.custom_field_values %>
+      <% if !custom_value.value.blank? and !custom_value.custom_field.is_public==false %>
+        <li><%=h custom_value.custom_field.name%>: <%=h show_value(custom_value) %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>

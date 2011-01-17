@@ -5,6 +5,7 @@ class HrController < ApplicationController
   helper :positions
 
   def index
-#   authorize
+
   end
+
 end

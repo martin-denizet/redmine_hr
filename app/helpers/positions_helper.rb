@@ -49,21 +49,33 @@ module PositionsHelper
     properties
   end
 
-  def display_rows_style(depth)
+  def display_rows_style(map)
     string=''
+    i=0
+    map.each { |manager_id,rows|
+      rows.each{ |row|
+        style = rows_style[i]
+        string +="data.setRowProperty("+ (row.to_s) +", 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:style][:from]+"), to("+style[:style][:to]+"));border: 2px solid "+style[:style][:border]+"');
+        "
 
-    for i in 0..depth
-      style = rows_style[i]
-      string +="data.setRowProperty("+ (i.to_s) +", 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:style][:from]+"), to("+style[:style][:to]+"));border: 2px solid "+style[:style][:border]+"');
-"
+        string +="data.setRowProperty("+(row.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFC8), to(#FFFFD7));border: 2px solid #FFFF84');
+        "
+      }
+      i+=1
 
-      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFC8), to(#FFFFD7));border: 2px solid #FFFF84');
-"
-
-      #      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:selected][:from]+"), to("+style[:selected][:to]+"));border: 2px solid "+style[:selected][:border]+"');
-      #"
-    
-    end
+    }
+    #    for i in 0..depth
+    #      style = rows_style[i]
+    #      string +="data.setRowProperty("+ (i.to_s) +", 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:style][:from]+"), to("+style[:style][:to]+"));border: 2px solid "+style[:style][:border]+"');
+    #"
+    #
+    #      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFC8), to(#FFFFD7));border: 2px solid #FFFF84');
+    #"
+    #
+    #      #      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:selected][:from]+"), to("+style[:selected][:to]+"));border: 2px solid "+style[:selected][:border]+"');
+    #      #"
+    #
+    #    end
     string
   end
 
