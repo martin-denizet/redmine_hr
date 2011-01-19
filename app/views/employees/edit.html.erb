@@ -1,0 +1,22 @@
+<h2><%= hr_index %> &#187; <%= l(:label_employees_information) %></h2>
+
+
+<% labelled_tabular_form_for :user, @user, :url => { :action => "edit" }, :html => { :class => nil } do |f| %>
+
+  <div class="box tabular">
+    <p><%= f.text_field :login, :size => 25, :readonly => 'true', :disabled => 'true' %></p>
+    <p><%= f.text_field :firstname, :readonly => 'true', :disabled => 'true' %></p>
+    <p><%= f.text_field :lastname, :readonly => 'true', :disabled => 'true' %></p>
+    <p><%= f.text_field :mail, :readonly => 'true', :disabled => 'true' %></p>
+    <% @user.custom_field_values.each do |value| %>
+      <p><%= custom_field_tag_with_label :user_custom_fields, value %></p>
+    <% end %>
+      <h3><%= l(:label_user_details)  %> </h3>
+    <% @user_details.custom_field_values.each do |value| %>
+      <p><%= custom_field_tag_with_label :user_details, value %></p>
+    <% end %>
+  </div>
+  <p>
+    <%= submit_tag l(:button_edit) %>
+  </p>
+<% end %>
