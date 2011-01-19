@@ -33,19 +33,19 @@
                 v:'<%= user_position.position_id %>_<%= user_position.user_id %>',
     <% end %>
               f:'<div class="org_chart_avatar"><%=  avatar(user_position.user, :size => "60") %></div>\n\
-                            <div class="org_chart_content"><p><%= link_to_user user_position.user %></p><p><%= user_position.position.title %></p></div>'},
+                              <div class="org_chart_content"><p><%= link_to_user user_position.user %></p><p><%= user_position.position.title %></p></div>'},
             '<%= user_position.position.manager_id==0? '' : user_position.position.manager_id %>',
-            '<%=h user_position.user %>'],
+            '<%=h user_position.user.mail %>'],
     <% i+=1 %>
   <% end %>
 
       ]);
-/*
+      /*
   <%  ids_map.each do |manager_id,subbordonates_ids| %>
-        ids[<%= manager_id %>]=<%= subbordonates_ids %>
+          ids[<%= manager_id %>]=<%= subbordonates_ids %>
 
   <% end %>
-*/
+       */
 
   <%=  display_rows_style(ids_map) %>
 

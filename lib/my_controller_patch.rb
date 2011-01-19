@@ -17,7 +17,7 @@ module MyControllerPatch
 
       @user_detail=UserDetails.find(:first,["user_id=?", @user])
       if @user_detail==nil
-        @user_detail=UserDetails.new({:user_id => @user} << params)
+        @user_detail=UserDetails.new(:user_id => @user)
         @user_detail.save()
       end
 

@@ -17,7 +17,6 @@ class PositionsController < ApplicationController
   end
 
 
-
   def new
     if request.get?
       @position = Position.new()
@@ -74,7 +73,7 @@ class PositionsController < ApplicationController
   end
 
   def chart
-    @user_positions =  UserPosition.find(:all)
+    @user_positions =  UserPosition.find(:all,:order => "position_id")
   end
 
   def contact_list

@@ -33,6 +33,8 @@ Redmine::Plugin.register :redmine_hr do
   permission :manage_positions, {:positions => [:new,:edit,:destroy]}
   permission :view_organization_chart, {:positions => [:chart]}
   permission :view_contact_list, {:positions => [:contact_list]}
+  permission :view_employees_information, {:employees => [:index]}
+  permission :manage_employees_information, {:employees => [:edit]}
   #  end
 
   menu :top_menu, :position, { :controller => 'hr', :action => 'index'  },

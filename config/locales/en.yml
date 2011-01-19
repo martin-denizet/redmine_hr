@@ -9,5 +9,8 @@ en:
   field_manager: "Manager"
   managed_by: "Managed By"
   label_user_details: "User Details"
+  user_details: "User Details"
   label_contact_list: "Contact List"
   label_avatar: "Avatar"
+  label_confidential_information: "Confidential Information"
+  label_employees_information: "Employees Information"
