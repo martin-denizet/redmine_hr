@@ -28,40 +28,39 @@ module PositionsHelper
 
   def rows_style()
     properties=[
-      #      {:selected => {:from => '#FFDFDF', :to => '#FFBBBB', :border => '#FF9797'}, :style => {:from => '#FF9797', :to => '#FF7575',:border => '#FF4848'}},
 
-      
-      {:style => {:'from' => '#DBEADC', :'to' => '#E9F1EA',:'border' => '#A6CAA9'}},
-      {:style => {:'from' => '#DFFFCA', :'to' => '#E8FFD9',:'border' => '#ABFF73'}},
-      {:style => {:'from' => '#CACAFF', :'to' => '#E1E1FF',:'border' => '#9999FF'}},
-      {:style => {:'from' => '#D0E6FF', :'to' => '#DBEBFF',:'border' => '#99C7FF'}},
-      {:style => {:'from' => '#D9F3FF', :'to' => '#ECFAFF',:'border' => '#A8E4FF'}},
-      {:style => {:'from' => '#CAFFD8', :'to' => '#EAFFEF',:'border' => '#8BFEA8'}},
-      {:style => {:'from' => '#E8C6FF', :'to' => '#EFD7FF',:'border' => '#C269FE'}},
-      {:style => {:'from' => '#D7D1F8', :'to' => '#E3E0FA',:'border' => '#A095EE'}},
-      {:style => {:'from' => '#B8E2EF', :'to' => '#C9EAF3',:'border' => '#57BCD9'}},
-      {:style => {:'from' => '#FFC8F2', :'to' => '#FFDFF8',:'border' => '#FFACEC'}},
-      {:style => {:'from' => '#DDCEFF', :'to' => '#E6DBFF',:'border' => '#C4ABFE'}},
-      {:style => {:'from' => '#FFFFC8', :'to' => '#FFFFD7',:'border' => '#FFFF84'}},
-      {:style => {:'from' => '#D6F8DE', :'to' => '#E3FBE9',:'border' => '#93EEAA'}},
-
-
-
+      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
+			{:style => {:'from' => '#DFB0FF', :'to' => '#C269FE',:'border' => '#9A03FE'}},
+      {:style => {:'from' => '#D0E6FF', :'to' => '#99C7FF',:'border' => '#62A9FF'}},
+      {:style => {:'from' => '#D9F3FF', :'to' => '#A8E4FF',:'border' => '#62D0FF'}},
+      {:style => {:'from' => '#DBEADC', :'to' => '#A6CAA9',:'border' => '#59955C'}},
+      {:style => {:'from' => '#F7F9D0', :'to' => '#EEF093',:'border' => '#B6BA18'}},
+      {:style => {:'from' => '#FFE2C8', :'to' => '#FFC895',:'border' => '#FF800D'}},
+      {:style => {:'from' => '#EEEECE', :'to' => '#E9E9BE',:'border' => '#D1D17A'}},
+      {:style => {:'from' => '#EFE7CF', :'to' => '#E3D6AA',:'border' => '#C0A545'}},
+			{:style => {:'from' => '#EACDC1', :'to' => '#D69E87',:'border' => '#B05F3C'}},
+      {:style => {:'from' => '#ECD9D9', :'to' => '#D7ACAC',:'border' => '#B96F6F'}},
+      {:style => {:'from' => '#F4CAD6', :'to' => '#E994AB',:'border' => '#B9264F'}},
+			{:style => {:'from' => '#C6C6FF', :'to' => '#9191FF',:'border' => '#0000CE'}},
+      {:style => {:'from' => '#E6DBFF', :'to' => '#C4ABFE',:'border' => '#9669FE'}},
+      {:style => {:'from' => '#DCEDEA', :'to' => '#A5D3CA',:'border' => '#4A9586'}},
 
       #Copy of the lines above
-      {:style => {:'from' => '#DBEADC', :'to' => '#E9F1EA',:'border' => '#A6CAA9'}},
-      {:style => {:'from' => '#DFFFCA', :'to' => '#E8FFD9',:'border' => '#ABFF73'}},
-      {:style => {:'from' => '#CACAFF', :'to' => '#E1E1FF',:'border' => '#9999FF'}},
-      {:style => {:'from' => '#D0E6FF', :'to' => '#DBEBFF',:'border' => '#99C7FF'}},
-      {:style => {:'from' => '#D9F3FF', :'to' => '#ECFAFF',:'border' => '#A8E4FF'}},
-      {:style => {:'from' => '#CAFFD8', :'to' => '#EAFFEF',:'border' => '#8BFEA8'}},
-      {:style => {:'from' => '#E8C6FF', :'to' => '#EFD7FF',:'border' => '#C269FE'}},
-      {:style => {:'from' => '#D7D1F8', :'to' => '#E3E0FA',:'border' => '#A095EE'}},
-      {:style => {:'from' => '#B8E2EF', :'to' => '#C9EAF3',:'border' => '#57BCD9'}},
-      {:style => {:'from' => '#FFC8F2', :'to' => '#FFDFF8',:'border' => '#FFACEC'}},
-      {:style => {:'from' => '#DDCEFF', :'to' => '#E6DBFF',:'border' => '#C4ABFE'}},
-      {:style => {:'from' => '#FFFFC8', :'to' => '#FFFFD7',:'border' => '#FFFF84'}},
-      {:style => {:'from' => '#D6F8DE', :'to' => '#E3FBE9',:'border' => '#93EEAA'}}
+      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
+			{:style => {:'from' => '#DFB0FF', :'to' => '#C269FE',:'border' => '#9A03FE'}},
+      {:style => {:'from' => '#D0E6FF', :'to' => '#99C7FF',:'border' => '#62A9FF'}},
+      {:style => {:'from' => '#D9F3FF', :'to' => '#A8E4FF',:'border' => '#62D0FF'}},
+      {:style => {:'from' => '#DBEADC', :'to' => '#A6CAA9',:'border' => '#59955C'}},
+      {:style => {:'from' => '#F7F9D0', :'to' => '#EEF093',:'border' => '#B6BA18'}},
+      {:style => {:'from' => '#FFE2C8', :'to' => '#FFC895',:'border' => '#FF800D'}},
+      {:style => {:'from' => '#EEEECE', :'to' => '#E9E9BE',:'border' => '#D1D17A'}},
+      {:style => {:'from' => '#EFE7CF', :'to' => '#E3D6AA',:'border' => '#C0A545'}},
+			{:style => {:'from' => '#EACDC1', :'to' => '#D69E87',:'border' => '#B05F3C'}},
+      {:style => {:'from' => '#ECD9D9', :'to' => '#D7ACAC',:'border' => '#B96F6F'}},
+      {:style => {:'from' => '#F4CAD6', :'to' => '#E994AB',:'border' => '#B9264F'}},
+			{:style => {:'from' => '#C6C6FF', :'to' => '#9191FF',:'border' => '#0000CE'}},
+      {:style => {:'from' => '#E6DBFF', :'to' => '#C4ABFE',:'border' => '#9669FE'}},
+      {:style => {:'from' => '#DCEDEA', :'to' => '#A5D3CA',:'border' => '#4A9586'}},
       
     ]
 
@@ -77,24 +76,13 @@ module PositionsHelper
         string +="data.setRowProperty("+ (row.to_s) +", 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:style][:from]+"), to("+style[:style][:to]+"));border: 2px solid "+style[:style][:border]+"');
         "
 
-        string +="data.setRowProperty("+(row.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFC8), to(#FFFFD7));border: 2px solid #FFFF84');
+        string +="data.setRowProperty("+(row.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF7AE), to(#EEE79E));border: 2px solid #E3CA4B');
         "
       }
       i+=1
 
     }
-    #    for i in 0..depth
-    #      style = rows_style[i]
-    #      string +="data.setRowProperty("+ (i.to_s) +", 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:style][:from]+"), to("+style[:style][:to]+"));border: 2px solid "+style[:style][:border]+"');
-    #"
-    #
-    #      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFC8), to(#FFFFD7));border: 2px solid #FFFF84');
-    #"
-    #
-    #      #      string +="data.setRowProperty("+(i.to_s) +", 'selectedStyle', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from("+style[:selected][:from]+"), to("+style[:selected][:to]+"));border: 2px solid "+style[:selected][:border]+"');
-    #      #"
-    #
-    #    end
+
     string
   end
 
