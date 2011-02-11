@@ -25,10 +25,7 @@ module CustomFieldsHelperPatch
       if (custom_field.type=='UserDetailsCustomField' and custom_field.is_public!=true)
         return "<i>"+l(:label_confidential_information)+"</i>"
       end
-
       return value
     end
   end
 end
-
-CustomFieldsHelper.send(:include, CustomFieldsHelperPatch)
