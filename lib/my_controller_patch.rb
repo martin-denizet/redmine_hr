@@ -1,7 +1,5 @@
 module MyControllerPatch
 
-  
-
   def self.included(base) # :nodoc:
     base.send(:include, InstanceMethods)
 
@@ -15,9 +13,11 @@ module MyControllerPatch
     def account_with_user_details
       account_without_user_details
 
-      @user_detail=UserDetails.find(:first,["user_id=?", @user])
-      if @user_detail==nil
-        @user_detail=UserDetails.new(:user_id => @user)
+      @user_detail = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
+
+      if @user_detail == nil
+        @user_details = UserDetails.new
+        @user_details.user_id = @user.id
         @user_detail.save()
       end
 

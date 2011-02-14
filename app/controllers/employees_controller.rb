@@ -14,9 +14,9 @@ class EmployeesController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user_details = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
-    if @user_details==nil
-      @user_details=UserDetails.new
-      @user_details.user_id=@user.id
+    if @user_details == nil
+      @user_details = UserDetails.new
+      @user_details.user_id = @user.id
       @user_details.save
     end
 

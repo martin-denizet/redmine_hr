@@ -14,7 +14,6 @@ Dispatcher.to_prepare :redmine_hr do
   require_dependency 'my_controller'
   MyController.send(:include, MyControllerPatch) unless MyController.included_modules.include?(MyControllerPatch)
 
-
 end
 
 
@@ -23,9 +22,8 @@ Redmine::Plugin.register :redmine_hr do
   author 'Martin Denizet'
   description 'Allows to give positions to users and generate a Organization Chart'
   version '0.0.2'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
-
+  url 'https://github.com/martin-denizet/redmine_hr'
+  author_url 'https://github.com/martin-denizet'
 
   #  project_module :hr do
   permission :view_hr, {:hr => :index}
@@ -43,10 +41,5 @@ Redmine::Plugin.register :redmine_hr do
   },
     :caption => 'HR'
 
-
-
-
-
-  #menu :project_menu, :position, { :controller => 'hr', :action => 'index' }, :caption => 'HR'
 
 end

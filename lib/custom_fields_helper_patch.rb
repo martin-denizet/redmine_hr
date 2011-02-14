@@ -23,7 +23,7 @@ module CustomFieldsHelperPatch
       value = show_value_without_is_public(custom_value)
       custom_field=custom_value.custom_field
       if (custom_field.type=='UserDetailsCustomField' and custom_field.is_public!=true)
-        return "<i>"+l(:label_confidential_information)+"</i>"
+        return l(:label_confidential_information)
       end
       return value
     end
