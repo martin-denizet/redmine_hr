@@ -5,10 +5,12 @@ class Position < ActiveRecord::Base
 
   has_many :subordinates, :class_name => "Position",
     :foreign_key => "manager_id"
+    
   belongs_to :manager, :class_name => "Position"
- #   :foreign_key => "manager_id"
+  #   :foreign_key => "manager_id"
 
-  has_many :user_positions
+  has_many :user_positions,
+    :dependent => :delete_all
   has_many :users, :through => :user_positions
 
   def to_s
@@ -18,7 +20,6 @@ class Position < ActiveRecord::Base
   def user_ids
 
     collection = []
-
     :user.each { |u| collection << [u.login, u.id] }
 
   end
