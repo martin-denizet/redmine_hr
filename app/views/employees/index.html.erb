@@ -45,7 +45,7 @@
           <% end %>
           <td>
             <% if authorized_globally('positions','edit') %>
-              <%= link_to  l(:button_edit), {:controller => 'employee', :action => 'edit', :id => user_position.user}, :class => 'icon icon-edit' %>
+              <%= link_to  l(:button_edit), {:controller => 'employees', :action => 'edit', :id => user_position.user}, :class => 'icon icon-edit' %>
             <% end %>
           </td>
         </tr>
