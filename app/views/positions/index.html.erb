@@ -9,6 +9,7 @@
   <table class="list positions">
     <thead><tr>
         <th><%=l(:label_position)%></th>
+        <th><%=l(:field_manager)%></th>
         <th><%=l(:button_sort)%></th>
         <th><%=l(:label_user_plural)%></th>
         <th></th>
@@ -17,9 +18,10 @@
       <% @positions.each do |position| %>
         <tr class="<%= cycle 'odd', 'even' %>">
           <td>
-            <%=  position[:title]%>
-            <%= l(:managed_by)%>
-            <%= (position.manager==NIL)?l(:label_nobody) : position.manager %>
+            <%=  link_to  position[:title], {:controller => 'positions', :action => 'edit', :id => position}%>
+          </td>
+          <td>
+            <%=  (position.manager==NIL)?l(:label_nobody) : (link_to  position.manager.title, {:controller => 'positions', :action => 'edit', :id => position.manager_id})%>
           </td>
           <td align="center" style="width:15%;"><%= reorder_links('position', {:action => 'edit', :id => position}) %></td>
           <td align="center">
