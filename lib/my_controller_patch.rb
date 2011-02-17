@@ -1,29 +1,39 @@
 module MyControllerPatch
 
+  
   def self.included(base) # :nodoc:
+
     base.send(:include, InstanceMethods)
 
     base.class_eval do
       alias_method_chain :account, :user_details
     end
+
   end
 
   module InstanceMethods
+
     # Adds a rates tab to the user administration page
     def account_with_user_details
+      
       account_without_user_details
-
+      
+      @user = User.current
       @user_details = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
+      @user_position =  UserPosition.find(:first, :conditions => ["user_id=?", @user.id])
 
-      if @user_details == nil
-        @user_details = UserDetails.new
-        @user_details.user_id = @user.id
-        @user_details.save()
+      if @user_details == nil and @user_position != nil
+        @user_details = UserDetails.new(:user_id => @user.id)
       end
 
-      if request.post?
-        @user_details.custom_field_values=params['user_details']['custom_field_values']
-        @user_details.save()
+      if request.post? and @user_position != nil
+        @user_details.attributes = params[:user_details]
+        if not @user_details.save
+          # FIXME block the redirection in case of failure
+          errors = ""
+          @user_details.errors.each{|error| errors+=error.to_s}
+          flash[:error] = errors
+        end
       end
     end
   end

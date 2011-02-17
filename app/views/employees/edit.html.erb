@@ -1,5 +1,6 @@
 <h2><%= hr_index %> &#187; <%= l(:label_employees_information) %></h2>
-
+<%= error_messages_for 'user_details' %>
+<%= error_messages_for 'user' %>
 
 <% labelled_tabular_form_for :user, @user, :url => { :action => "edit" }, :html => { :class => nil } do |f| %>
 

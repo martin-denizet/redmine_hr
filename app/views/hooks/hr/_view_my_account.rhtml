@@ -1,10 +1,9 @@
 <h3><%= l(:label_user_details) %></h3>
-<% user_details = UserDetails.find(:first,:conditions => ["user_id=?", @user]) %>
-<% if user_details!=nil %>
-  <%  user_details.custom_field_values.select{|custom_value| custom_value.editable? == false}.each do |value| %>
+<% if @user_details!=nil %>
+  <%  @user_details.custom_field_values.select{|custom_value| custom_value.editable? == false}.each do |value| %>
     <p><%=  custom_field_label_tag value.custom_field.name, value %><%=h show_value_without_is_public(value) %></p>
   <% end %>
-  <%  user_details.custom_field_values.select(&:editable?).each do |value| %>
+  <%  @user_details.custom_field_values.select(&:editable?).each do |value| %>
     <p><%= custom_field_tag_with_label :user_details, value %></p>
   <% end %>
 <% end %>

@@ -31,6 +31,13 @@ module HR
         })
     end
 
+    def view_my_account_contextual(context={ })
+      context[:controller].send(:render_to_string, {
+          :partial => "hooks/hr/view_my_account_contextual",
+          :locals => context
+        })
+    end
+
   end
 end
 
