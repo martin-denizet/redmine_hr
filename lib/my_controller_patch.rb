@@ -13,17 +13,17 @@ module MyControllerPatch
     def account_with_user_details
       account_without_user_details
 
-      @user_detail = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
+      @user_details = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
 
-      if @user_detail == nil
+      if @user_details == nil
         @user_details = UserDetails.new
         @user_details.user_id = @user.id
-        @user_detail.save()
+        @user_details.save()
       end
 
       if request.post?
-        @user_detail.custom_field_values=params['user_details']['custom_field_values']
-        @user_detail.save()
+        @user_details.custom_field_values=params['user_details']['custom_field_values']
+        @user_details.save()
       end
     end
   end
