@@ -25,15 +25,15 @@ Redmine::Plugin.register :redmine_hr do
   url 'https://github.com/martin-denizet/redmine_hr'
   author_url 'https://github.com/martin-denizet'
 
-  #  project_module :hr do
-  permission :view_hr, {:hr => :index}
-  permission :view_positions, {:positions => [:index,:show]}
-  permission :manage_positions, {:positions => [:new,:edit,:destroy]}
-  permission :view_organization_chart, {:positions => [:chart]}
-  permission :view_contact_list, {:positions => [:contact_list]}
-  permission :view_employees_information, {:employees => [:index]}
-  permission :manage_employees_information, {:employees => [:edit]}
-  #  end
+  project_module :hr do
+    permission :view_hr, {:hr => :index}
+    permission :view_positions, {:positions => [:index,:show]}
+    permission :manage_positions, {:positions => [:new,:edit,:destroy]}
+    permission :view_organization_chart, {:positions => [:chart]}
+    permission :view_contact_list, {:positions => [:contact_list]}
+    permission :view_employees_information, {:employees => [:index]}
+    permission :manage_employees_information, {:employees => [:edit]}
+  end
 
   menu :top_menu, :position, { :controller => 'hr', :action => 'index'  },
     :if =>  Proc.new {
