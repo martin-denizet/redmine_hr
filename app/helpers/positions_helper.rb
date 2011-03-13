@@ -29,7 +29,7 @@ module PositionsHelper
   def rows_style()
     properties=[
 
-      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
+      
 			{:style => {:'from' => '#DFB0FF', :'to' => '#C269FE',:'border' => '#9A03FE'}},
       {:style => {:'from' => '#D0E6FF', :'to' => '#99C7FF',:'border' => '#62A9FF'}},
       {:style => {:'from' => '#D9F3FF', :'to' => '#A8E4FF',:'border' => '#62D0FF'}},
@@ -44,9 +44,10 @@ module PositionsHelper
 			{:style => {:'from' => '#C6C6FF', :'to' => '#9191FF',:'border' => '#0000CE'}},
       {:style => {:'from' => '#E6DBFF', :'to' => '#C4ABFE',:'border' => '#9669FE'}},
       {:style => {:'from' => '#DCEDEA', :'to' => '#A5D3CA',:'border' => '#4A9586'}},
+      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
 
       #Copy of the lines above
-      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
+      
 			{:style => {:'from' => '#DFB0FF', :'to' => '#C269FE',:'border' => '#9A03FE'}},
       {:style => {:'from' => '#D0E6FF', :'to' => '#99C7FF',:'border' => '#62A9FF'}},
       {:style => {:'from' => '#D9F3FF', :'to' => '#A8E4FF',:'border' => '#62D0FF'}},
@@ -61,6 +62,7 @@ module PositionsHelper
 			{:style => {:'from' => '#C6C6FF', :'to' => '#9191FF',:'border' => '#0000CE'}},
       {:style => {:'from' => '#E6DBFF', :'to' => '#C4ABFE',:'border' => '#9669FE'}},
       {:style => {:'from' => '#DCEDEA', :'to' => '#A5D3CA',:'border' => '#4A9586'}},
+      {:style => {:'from' => '#F9D9FF', :'to' => '#EFA9FE',:'border' => '#E469FE'}},
       
     ]
 
