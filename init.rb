@@ -1,38 +1,20 @@
 require 'redmine'
 
-
 # Patches to the Redmine core
-
 require 'redmine_hr/patches/user_patch'
 require 'redmine_hr/patches/my_controller_patch'
+
 # Customization hooks
 # It requires the file in redmine_hr/hooks/hooks
 require 'redmine_hr/hooks/hooks'
 
-
-
-
-
 RAILS_DEFAULT_LOGGER.info 'Starting HR plugin for RedMine'
-
-#Dispatcher.to_prepare :redmine_hr do
-#
-#  require_dependency 'custom_fields_helper'
-#  CustomFieldsHelper.send(:include, CustomFieldsHelperPatch) unless CustomFieldsHelper.included_modules.include?(CustomFieldsHelperPatch)
-#
-#  require_dependency 'my_controller'
-#  MyController.send(:include, MyControllerPatch) unless MyController.included_modules.include?(MyControllerPatch)
-#
-#
-#end
-
-
 
 Redmine::Plugin.register :redmine_hr do
   name 'Redmine HR plugin'
   author 'Martin Denizet'
   description 'Allows to give positions to users and generate a Organization Chart'
-  version '0.0.3'
+  version '0.1.0'
   url 'https://github.com/martin-denizet/redmine_hr'
   author_url 'https://github.com/martin-denizet'
 
@@ -51,8 +33,6 @@ Redmine::Plugin.register :redmine_hr do
     User.current.allowed_to?({:controller => 'hr', :action => 'index'},nil, :global => true)
   },
     :caption => 'HR'
-
-
 
 
 end
