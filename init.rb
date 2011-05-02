@@ -1,20 +1,31 @@
 require 'redmine'
-# It requires the file in lib/hr/hooks.rb
-require_dependency 'hr/hooks'
-require 'user'
+
 
 # Patches to the Redmine core
-require 'dispatcher'
 
-Dispatcher.to_prepare :redmine_hr do
+require 'redmine_hr/patches/user_patch'
+require 'redmine_hr/patches/my_controller_patch'
+# Customization hooks
+# It requires the file in redmine_hr/hooks/hooks
+require 'redmine_hr/hooks/hooks'
 
-  require_dependency 'custom_fields_helper'
-  CustomFieldsHelper.send(:include, CustomFieldsHelperPatch) unless CustomFieldsHelper.included_modules.include?(CustomFieldsHelperPatch)
 
-  require_dependency 'my_controller'
-  MyController.send(:include, MyControllerPatch) unless MyController.included_modules.include?(MyControllerPatch)
 
-end
+
+
+RAILS_DEFAULT_LOGGER.info 'Starting HR plugin for RedMine'
+
+#Dispatcher.to_prepare :redmine_hr do
+#
+#  require_dependency 'custom_fields_helper'
+#  CustomFieldsHelper.send(:include, CustomFieldsHelperPatch) unless CustomFieldsHelper.included_modules.include?(CustomFieldsHelperPatch)
+#
+#  require_dependency 'my_controller'
+#  MyController.send(:include, MyControllerPatch) unless MyController.included_modules.include?(MyControllerPatch)
+#
+#
+#end
+
 
 
 Redmine::Plugin.register :redmine_hr do
@@ -40,6 +51,8 @@ Redmine::Plugin.register :redmine_hr do
     User.current.allowed_to?({:controller => 'hr', :action => 'index'},nil, :global => true)
   },
     :caption => 'HR'
+
+
 
 
 end

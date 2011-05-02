@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   before_filter :authorize_global
 
   def index
-    @user_positions =  UserPosition.find(:all,:order => "position_id")
+    @users =  @users =  User.find(:all,:joins=> [:position],:order => "positions.position",:conditions => ["status=?", 1])
   end
 
   def edit

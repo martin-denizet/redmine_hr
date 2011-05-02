@@ -46,7 +46,7 @@ class PositionsController < ApplicationController
 
     @position = Position.find(params[:id])
     if request.post? and @position.update_attributes(params[:position])
-      
+
       UserPosition.destroy_all( ["position_id=?", @position.id])
 
       (params[:user_id] || []).each { |user_id|
@@ -73,12 +73,13 @@ class PositionsController < ApplicationController
   end
 
   def chart
-    @user_positions =  UserPosition.find(:all,:order => "position_id")
+    #@user_positions =  UserPosition.find(:all,:order => "position_id")
+    @users =  User.find(:all,:joins=>:position,:order => "positions.position",:conditions => ["status=?", 1])
   end
 
   def contact_list
-    @user_positions =  UserPosition.find(:all,:order => "position_id")
+    @users =  @users =  User.find(:all,:joins=> [:position],:order => "positions.position",:conditions => ["status=?", 1])
   end
 
-  
+
 end

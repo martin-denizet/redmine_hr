@@ -37,7 +37,6 @@ module HR
           :locals => context
         })
     end
-
   end
 end
 
