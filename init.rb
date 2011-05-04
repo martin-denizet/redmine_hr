@@ -26,13 +26,30 @@ Redmine::Plugin.register :redmine_hr do
     permission :view_contact_list, {:positions => [:contact_list]}
     permission :view_employees_information, {:employees => [:index]}
     permission :manage_employees_information, {:employees => [:edit]}
+
   end
+
+  #Worktime
+  project_module :worktime do
+    
+    permission :view_work_time_tab, {:work_time =>
+        [:show,:total,:edit_relay,:relay_total,:relay_total2,:popup_select_issue,:ajax_select_issue,:popup_select_issues,:ajax_select_issues,:ajax_insert_daily,:ajax_memo_edit,:ajax_relay_table]}
+    permission :edit_work_time_total, {}
+    permission :view_work_time_other_member, {}
+  end
+
 
   menu :top_menu, :position, { :controller => 'hr', :action => 'index'  },
     :if =>  Proc.new {
     User.current.allowed_to?({:controller => 'hr', :action => 'index'},nil, :global => true)
   },
-    :caption => 'HR'
+    :caption => :label_hr
+
+  #Worktime
+  menu :account_menu, :work_time, {:controller => 'work_time', :action => 'index'}, :caption => :work_time
+  menu :project_menu, :work_time, {:controller => 'work_time', :action => 'show'}, :caption => :work_time
+
+  
 
 
 end

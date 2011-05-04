@@ -1,3 +1,6 @@
-= hr
+= Credit
 
-Description goes here
+Time input feature copied from Tomohisa Kusukawa's WorkTime plugin: http://code.google.com/p/kusu/wiki/WorkTime under GPLv2 license
+I copied it because I needed to extend it and integrate it to HR features.
+
+= Known Issues
