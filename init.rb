@@ -3,6 +3,7 @@ require 'redmine'
 # Patches to the Redmine core
 require 'redmine_hr/patches/user_patch'
 require 'redmine_hr/patches/my_controller_patch'
+require 'redmine_hr/patches/custom_fields_helper_patch.rb'
 
 # Customization hooks
 # It requires the file in redmine_hr/hooks/hooks
