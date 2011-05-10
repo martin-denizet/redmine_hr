@@ -15,7 +15,7 @@ Redmine::Plugin.register :redmine_hr do
   name 'Redmine HR plugin'
   author 'Martin Denizet'
   description 'Allows to give positions to users and generate a Organization Chart'
-  version '0.1.0'
+  version '0.1.1'
   url 'https://github.com/martin-denizet/redmine_hr'
   author_url 'https://github.com/martin-denizet'
 
