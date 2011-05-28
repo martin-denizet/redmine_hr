@@ -1,3 +1,33 @@
+= Redmine HR plugin
+
+This plugins aims to complete Redmine's integration in a company's activities by adding HR functionalities.
+
+*Please note this plugin is still in a beta state, use at your own risks.*
+
+== Features
+
+* Public and private information on employees
+* Organization Chart generation
+* Contact list
+
+== Features to come
+
+* Employee activity reports (Based on WorkTime plugin by Tomohisa Kusukawa)
+* Employee leaves/travels
+* Employee attendance Schedule
+
+= Downloading and installing the HR Plugin
+
+First download the plugin using git, open a terminal in your Redmine installation directory:
+
+<tt>git clone git@github.com:martin-denizet/redmine_hr.git vendor/plugins/</tt>
+
+Then you will need to do migrate the database for the plugin.
+
+<tt>rake db:migrate_plugins RAILS_ENV=production</tt>
+
+The installation is now finished and you will be able to use the plugin after you restart your Redmine instance.
+
 = Credit
 
 Time input feature copied from Tomohisa Kusukawa's WorkTime plugin: http://code.google.com/p/kusu/wiki/WorkTime under GPLv2 license
