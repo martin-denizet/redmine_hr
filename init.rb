@@ -46,6 +46,12 @@ Redmine::Plugin.register :redmine_hr do
     :caption => :label_hr
 
   #Worktime
+  menu :top_menu, :last, { :controller => 'work_time', :action => 'index'  },
+    :if =>  Proc.new {
+    User.current.allowed_to?({:controller => 'work_time', :action => 'index'},nil, :global => true)
+  },
+    :caption => :work_time
+
   menu :account_menu, :work_time, {:controller => 'work_time', :action => 'index'}, :caption => :work_time
   menu :project_menu, :work_time, {:controller => 'work_time', :action => 'show'}, :caption => :work_time
 
