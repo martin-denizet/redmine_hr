@@ -20,6 +20,7 @@ function dup_issue(ajax_url, insert_pos, id)
 -->
 </script>
 
+<%= @message %>
 <div style="text-align:right;">
 <%= render :partial=>'select_project' %><br/>
 <%if User.current.allowed_to?(:view_work_time_other_member, @project) then%>
@@ -35,7 +36,6 @@ function dup_issue(ajax_url, insert_pos, id)
 <%end%>
 </div>
 
-<%= @message %>
 <h2><%=l(:wt_monthly_report)%> (<%=User.find_by_id(@this_uid)%>)</h2>
 <%= render :partial=>'user_month_table' %>
 
@@ -45,11 +45,11 @@ function dup_issue(ajax_url, insert_pos, id)
   <%=l(:wt_daily_report)%>
 </h2>
 <% form_tag :action => @link_params[:action] do %>
-<%= hidden_field_tag('year', @this_year); %>
-<%= hidden_field_tag('month', @this_month); %>
-<%= hidden_field_tag('day', @this_day); %>
-<%= hidden_field_tag('user', @this_uid); %>
-<%= hidden_field_tag('prj', @restrict_project); %>
+<%= hidden_field_tag('year', @this_year) %>
+<%= hidden_field_tag('month', @this_month) %>
+<%= hidden_field_tag('day', @this_day) %>
+<%= hidden_field_tag('user', @this_uid) %>
+<%= hidden_field_tag('prj', @restrict_project) %>
 
 <%= render :partial=>'user_day_table' %>
 
@@ -59,6 +59,7 @@ function dup_issue(ajax_url, insert_pos, id)
 >
   <%=l(:wt_add_issue)%>
 </a>]
+[<%= link_to(l(:wt_hide_closed_issues), @link_params.merge(:issue_del=>"closed")) %>]
 <%= submit_tag l(:wt_update) %>
 <br/>
 <%end%>
@@ -87,9 +88,9 @@ if memo then # この日のメモがある場合
 <%
 memo=WtDailyMemo.find(:first, :order=>"day DESC", :conditions=>["day<:d and user_id=:u",{:d=>@this_date,:u=>@this_uid}])
 if memo then
-d = memo.day;
+d = memo.day
 %>
-[<%= link_to(l(:wt_pre_memo), @link_params.merge(:anchor=>"memo", :day=>d.day, :month=>d.month, :year=>d.year));%>]
+[<%=link_to(l(:wt_pre_memo), @link_params.merge(:anchor=>"memo", :day=>d.day, :month=>d.month, :year=>d.year))%>]
 <%end%>
 
 <%if @this_uid==@crnt_uid then%>
@@ -103,9 +104,9 @@ d = memo.day;
 <%
 memo=WtDailyMemo.find(:first, :order=>"day", :conditions=>["day>:d and user_id=:u",{:d=>@this_date,:u=>@this_uid}])
 if memo then
-d = memo.day;
+d = memo.day
 %>
-[<%= link_to(l(:wt_next_memo), @link_params.merge(:anchor=>"memo", :day=>d.day, :month=>d.month, :year=>d.year));%>]
+[<%= link_to(l(:wt_next_memo), @link_params.merge(:anchor=>"memo", :day=>d.day, :month=>d.month, :year=>d.year))%>]
 <%end%>
 <br/>
 

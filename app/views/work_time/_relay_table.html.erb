@@ -29,47 +29,47 @@ prjs.each do |po|
   issue_id = tic.issue_id;
   tic_num += 1;
   if tic.position != tic_num then # 番号が間違っていたらつけなおし
-    tic.position = tic_num; tic.save;
+    tic.position = tic_num; tic.save
   end
 
   # 当該チケットに集計が無かったらスキップ
-  next unless @issue_cost.key?(issue_id);
-  next unless @issue_cost[issue_id].key?(-1);
+  next unless @issue_cost.key?(issue_id)
+  next unless @issue_cost[issue_id].key?(-1)
 
-  issue = Issue.find_by_id(issue_id);
-  next if issue.nil?; # チケットが削除されていたらパス
-  next if issue.project_id != dsp_prj;
-  issueHtml = issue.closed? ? "<del>"+issue.to_s+"</del>" : issue.to_s;
+  issue = Issue.find_by_id(issue_id)
+  next if issue.nil? # チケットが削除されていたらパス
+  next if issue.project_id != dsp_prj
+  issueHtml = issue.closed? ? "<del>"+issue.to_s+"</del>" : issue.to_s
 
   if tic.parent && tic.parent != 0 then
-    parent = Issue.find_by_id(tic.parent);
+    parent = Issue.find_by_id(tic.parent)
     if parent.nil? then
-      parentHtml = "<del>Issue:"+tic.parent.to_s+"</del>";
+      parentHtml = "<del>Issue:"+tic.parent.to_s+"</del>"
     else
-      parentHtml = parent.closed? ? "<del>"+parent.to_s+"</del>" : parent.to_s;
+      parentHtml = parent.closed? ? "<del>"+parent.to_s+"</del>" : parent.to_s
     end
   else
-    parent = "";
+    parent = ""
   end
 
   if @issue_cost.key?(issue_id) && 
      @issue_cost[issue_id].key?(-1) && 
      @issue_cost[issue_id][-1]!=0 then
-    cost=sprintf("%.2f",@issue_cost[issue_id][-1]);
+    cost=sprintf("%.2f",@issue_cost[issue_id][-1])
   else
-    cost="&nbsp";
+    cost="&nbsp"
   end
 
   if @r_issue_cost.key?(issue_id) && 
      @r_issue_cost[issue_id].key?(-1) && 
      @r_issue_cost[issue_id][-1]!=0 then
     if @issue_cost[issue_id][-1]!=@r_issue_cost[issue_id][-1] then
-      r_cost=sprintf("<b>%.2f</b>",@r_issue_cost[issue_id][-1]);
+      r_cost=sprintf("<b>%.2f</b>",@r_issue_cost[issue_id][-1])
     else
-      r_cost=sprintf("%.2f",@r_issue_cost[issue_id][-1]);
+      r_cost=sprintf("%.2f",@r_issue_cost[issue_id][-1])
     end
   else
-    r_cost="&nbsp";
+    r_cost="&nbsp"
   end
 
 %>
