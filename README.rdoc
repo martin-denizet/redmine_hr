@@ -1,6 +1,6 @@
 = Redmine HR plugin
 
-This plugins aims to complete Redmine's integration in a company's activities by adding HR functionalities.
+This plugin aims to complete Redmine's integration in a company's activities by adding HR functionalities.
 
 *Please note this plugin is still in a beta state, use at your own risks.*
 
@@ -32,5 +32,6 @@ The installation is now finished and you will be able to use the plugin after yo
 
 Time input feature copied from Tomohisa Kusukawa's WorkTime plugin: http://code.google.com/p/kusu/wiki/WorkTime under GPLv2 license
 I copied it because I needed to extend it and integrate it to HR features.
+(WorkTime 0.1.0[r216])
 
 = Known Issues
