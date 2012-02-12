@@ -1,7 +1,7 @@
 require 'redmine'
 
 # Patches to the Redmine core
-require 'redmine_hr/patches/user_patch'
+require_dependency 'redmine_hr/patches/user_patch'
 require 'redmine_hr/patches/my_controller_patch'
 
 # Customization hooks
