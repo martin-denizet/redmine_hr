@@ -13,3 +13,23 @@
 .org_chart_content p{
     color:#484848;
 }
+
+#hr-menu a{
+background-position: 0% 40%;
+background-repeat: no-repeat;
+padding-left: 20px;
+padding-top: 2px;
+padding-bottom: 3px;
+}
+#hr-menu a.chart {
+background-image: url(../images/sitemap_color.png);
+}
+#hr-menu a.contact_list {
+background-image: url(../images/book_addresses.png);
+}
+#hr-menu a.employees {
+background-image: url(../images/vcard.png);
+}
+#hr-menu a.positions {
+background-image: url(../images/user_add.png);
+}

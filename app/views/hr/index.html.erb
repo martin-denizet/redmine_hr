@@ -1,21 +1,26 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+<% end %>
 <h2><%= l(:label_hr) %></h2>
-<% if authorized_globally('positions','index') %>
-  <p>
-    <%= positions_index %>
-  </p>
-<% end %>
-<% if authorized_globally('positions','chart') %>
-  <p>
-    <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart') %>
-  </p>
-<% end %>
-<% if authorized_globally('positions','contact_list') %>
-  <p>
-    <%= link_to l(:label_contact_list), url_for(:controller => 'positions', :action => 'contact_list') %>
-  </p>
-<% end %>
+<div id="hr-menu">
+  <% if authorized_globally('positions','index') %>
+    <p>
+      <%= positions_index %>
+    </p>
+  <% end %>
+  <% if authorized_globally('positions','chart') %>
+    <p>
+      <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart'), :class=>'chart' %>
+    </p>
+  <% end %>
+  <% if authorized_globally('positions','contact_list') %>
+    <p>
+      <%= link_to l(:label_contact_list), url_for(:controller => 'positions', :action => 'contact_list'), :class=>'contact_list' %>
+    </p>
+  <% end %>
   <% if authorized_globally('employees','index') %>
-  <p>
-    <%= link_to l(:label_employees_information), url_for(:controller => 'employees', :action => 'index') %>
-  </p>
-<% end %>
+    <p>
+      <%= link_to l(:label_employees_information), url_for(:controller => 'employees', :action => 'index'), :class=>'employees' %>
+    </p>
+  <% end %>
+</div>
