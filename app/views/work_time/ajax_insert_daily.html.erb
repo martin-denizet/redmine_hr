@@ -1,36 +1,5 @@
 <%if @add_issue then%>
-<tr style="background:#ddf;" id="time_entry_pos<%=@suffix%>">
-  <td>
-  <div style="position:relative;width:300px;">
-    <%=@add_issue.project.name%>
-    <br/>
-    <%= link_to(@issueHtml, :controller=>"issues", :action=>"show", :id=>@add_issue.id) %>
-    <%= print_issue_cost(@add_issue) %>
-        <a name="<%='done_ratio'+@add_issue.id.to_s%>"
-        href="JavaScript:update_done_ratio(
-          '<%=url_for(@link_params.merge(:action=>"popup_update_done_ratio"))%>',
-          '<%=url_for(@link_params.merge(:action=>"ajax_update_done_ratio"))%>',
-          <%=@add_issue.id%>);">
-      [<%=@add_issue.done_ratio%>&#37;]
-    </a>
-
-    <a style="position:absolute;bottom:1px;right:10px;"
-       href="JavaScript:dup_issue('<%=url_for(@link_params.merge(:action=>"ajax_insert_daily"))%>',
-                                   'time_entry_pos<%=@suffix%>',
-                                    <%=@add_issue.id%>);">+</a>
-  </div>
-  </td>
-  <td>
-    <%= text_field_tag("new_time_entry"+@suffix+"[hours]", "", :size=>5) %>
-  </td>
-  <td>
-    <%= select_tag "new_time_entry"+@suffix+"[activity_id]", options_for_select(@activities), :required => true %>
-  </td>
-  <td>
-    <%= text_field_tag("new_time_entry"+@suffix+"[comments]", "", :size=>80)%>
-  </td>
-  <%@custom_fields.each do |cf|%>
-     <td><%= custom_field_tag "new_time_entry"+@suffix, cf %></td>
-  <% end %>
-</tr>
+  <%=render :partial=>'inline_time_entry_form',
+    :locals=>{:issue=>@add_issue,:issue_odr=>-1,:issue_line_class=>'wt_daily_report_new_issue',:activities=>@activities,:new_lines_count=>@count,:time_entry=>nil}
+    %>
 <%end%>

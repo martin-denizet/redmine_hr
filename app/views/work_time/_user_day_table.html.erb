@@ -1,187 +1,80 @@
-<table border="1" id="time_input_table">
-  <tr align="center" style="background:#ddd;">
-    <td>
+<table id="time_input_table">
+  <tr class="wt_daily_report_header">
+    <th colspan="2">
       <div style="position:relative;height:25px;">
         <div style="top:3px;left:20px;width:200px;font-size:1.5em;">
           <%= @this_year %>/<%= @month_names[@this_month-1]%>/<%=@this_day%><br/>
         </div>
       </div>
-    </td>
-    <td><%=l(:work_time)%></td>
-    <td><%=l(:field_activity)%></td>
-    <td><%=l(:field_comments)%></td>
+    </th>
+    <th><%=l(:work_time)%></th>
+    <th><%=l(:field_activity)%></th>
+    <th><%=l(:field_comments)%></th>
     <% @custom_fields.each do |cf| %>
-       <td><%= cf.name %></td>
+      <td><%= cf.name %></td>
     <% end %>
   </tr>
-<%
-@day_pack[:odr_prjs].each do |prj_pack|
-  next if prj_pack[:ref_issues].length==0
-  prj = prj_pack[:prj]
-  dsp_prj = prj.id
-  dsp_pos = prj_pack[:odr]
+  <%
+  @day_pack[:odr_prjs].each do |prj_pack|
+    next if prj_pack[:ref_issues].length==0
+    prj = prj_pack[:prj]
+    dsp_prj = prj.id
+    dsp_pos = prj_pack[:odr]
 
-  next if !User.current.allowed_to?(:log_time, prj)
+    next if !User.current.allowed_to?(:log_time, prj)
 
-  activities = []
-  prj.activities.each do |act|
-    activities.push([act.name, act.id])
-  end
-%>
-<tr style="background:#000;color:#fff;">
-  <td>
-      <%if @this_uid==@crnt_uid then%>
+    activities = []
+    prj.activities.each do |act|
+      activities.push([act.name, act.id])
+    end
+  %>
+    <tr class="wt_daily_report_project">
+      <td>
+        <%if @this_uid==@crnt_uid then%>
 
-        <a href="JavaScript:prj_pos('<%=url_for(@link_params) %>',<%=dsp_prj%>,<%=dsp_pos%>,<%=@prj_odr_max+((dsp_pos.to_i<0)?1:0)%>);">
-          <%= (dsp_pos.to_i<0) ? "*" : dsp_pos %>
-        </a>
-     <%end%>
+          <a href="JavaScript:prj_pos('<%=url_for(@link_params) %>',<%=dsp_prj%>,<%=dsp_pos%>,<%=@prj_odr_max+((dsp_pos.to_i<0)?1:0)%>);">
+            <%= (dsp_pos.to_i<0) ? "*" : dsp_pos %>
+          </a>
+        <%end%>
         <%=prj.name%>
-  </td>
-  <td><%=sprintf("%1.1f", prj_pack[:total])%></td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
-  <% @custom_fields.each do |cf| %>
-     <td>&nbsp;</td>
-  <% end %>
-</tr>
-<%
-prj_pack[:odr_issues].each do |issue_pack|
-  issue = issue_pack[:issue]
-  issue_id = issue.id
-  issue_odr = issue_pack[:odr].to_i
-  issue_color = issue_pack[:worked] ? "#cfc" : "#fff"
-  issue = Issue.find_by_id(issue_id)
-  if issue.nil? || !issue.visible? then
-    issueHtml = "<del>Issue:"+issue_id.to_s+"</del>"
-  elsif issue.closed?
-    issueHtml = "<del>"+issue.to_s+"</del>" 
-  else
-    issueHtml = issue.to_s
+      </td>
+      <td>&nbsp;</td>
+      <td><%=sprintf("%1.1f", prj_pack[:total])%></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <% @custom_fields.each do |cf| %>
+        <td>&nbsp;</td>
+      <% end %>
+    </tr>
+    <%
+    prj_pack[:odr_issues].each do |issue_pack|
+      issue = issue_pack[:issue]
+      issue_id = issue.id
+      issue_odr = issue_pack[:odr].to_i
+      issue_line_class=issue_pack[:worked] ? "worked" : "not-worked"
+      issue = Issue.find_by_id(issue_id)
+
+
+      if issue_pack[:each_entries].length==0 then %>
+        <%= render :partial=>'inline_time_entry_form', :locals=>{:issue=>issue,:issue_odr=>issue_odr,:issue_line_class=>issue_line_class,:activities=>activities,:time_entry=>TimeEntry.new()}%>
+      <% else
+        issue_pack[:each_entries].each do |hour_id, time_entry|
+      %>
+
+          <%=render :partial=>'inline_time_entry_form', :locals=>{:issue=>issue,:issue_odr=>issue_odr,:issue_line_class=>issue_line_class+" "+cycle('wt_time_entry_line_even','wt_time_entry_line_even'),:activities=>activities,:time_entry=>time_entry}%>
+       <% end
+      end
+    end
   end
-
-  if issue_pack[:each_entries].length==0 then
 %>
-<!-- 工数エントリなし -->
-<tr id="time_entry_pos[<%=issue_id%>][0]">
-  <td style="background:<%=issue_color%>;">
-  <div style="position:relative;width:300px;">
-    <%if @this_uid==@crnt_uid then%>
-    <a href="JavaScript:issue_pos('<%=url_for(@link_params) %>',<%=issue_id%>,<%=issue_odr%>,<%=@issue_odr_max+((issue_odr.to_i<0)?1:0)%>);">
-      <%= (issue_odr.to_i<0) ? "*" : issue_odr %>
-    </a>
-    <%end%>
-
-    <a onclick="JavaScript:showModalDialog('<%=url_for(:controller=>"issues", :action=>"show", :id=>issue_id)%>', window, '');" href="#">
-      <%=issueHtml%>
-    </a>
-    <%= print_issue_cost(issue) %>
-    <a name="<%='done_ratio'+issue.id.to_s%>"
-        href="JavaScript:update_done_ratio(
-          '<%=url_for(@link_params.merge(:action=>"popup_update_done_ratio"))%>',
-          '<%=url_for(@link_params.merge(:action=>"ajax_update_done_ratio"))%>',
-          <%=issue_id%>);">
-      [<%=issue.done_ratio%>&#37;]
-    </a>
-    &nbsp;&nbsp;&nbsp;
-
-    <a style="position:absolute;bottom:1px;right:10px;" href="JavaScript:dup_issue('<%=url_for(@link_params.merge(:action=>"ajax_insert_daily"))%>',
-                                   'time_entry_pos[<%=issue_id%>][0]',
-                                    <%=issue_id%>);">+</a>
-    <%if @this_uid==@crnt_uid && issue_odr>0 then%>
-      <a style="position:absolute;bottom:1px;right:3px;" href="<%=url_for(@link_params.merge(:issue_del=>issue_id))%>">x</a>
-    <%end%>
-  </div>
-  </td>
-  <td>
-    <%= text_field_tag("new_time_entry["+issue_id.to_s+"][0][hours]", "", :size=>5) %>
-  </td>
-  <td>
-    <%= select_tag "new_time_entry["+issue_id.to_s+"][0][activity_id]", options_for_select(activities), :required => true %>
-  </td>
-  <td>
-    <%= text_field_tag("new_time_entry["+issue_id.to_s+"][0][comments]", "", :size=>80)%>
-  </td>
-  <%@custom_fields.each do |cf|
-    def cf.custom_field
-      return self
-    end
-    def cf.value
-      return self.default_value
-    end
-    def cf.true?
-      return self.default_value
-    end
-    def cf.customized
-      nil
-    end
-  %>
-     <td><%= custom_field_tag "new_time_entry["+issue_id.to_s+"][0]", cf %></td>
-  <% end %>
-</tr>
-<%
-  else
-    issue_pack[:each_entries].each do |hour_id, hour|
-%>
-<!-- 工数エントリあり -->
-<tr id="time_entry_pos<%=hour_id%>">
-  <td style="background:<%=issue_color%>;">
-  <div style="position:relative;width:300px;">
-    <%if @this_uid==@crnt_uid then%>
-    <a href="JavaScript:issue_pos('<%=url_for(@link_params) %>',<%=issue_id%>,<%=issue_odr%>,<%=@issue_odr_max+((issue_odr.to_i<0)?1:0)%>);">
-      <%= (issue_odr.to_i<0) ? "*" : issue_odr %>
-    </a>
-    <%end%>
-    <a onclick="JavaScript:showModalDialog('<%=url_for(:controller=>"issues", :action=>"show", :id=>issue_id)%>', window, '');" href="#">
-      <%=issueHtml%>
-    </a>
-
-    <%= print_issue_cost(issue) %>
-    <a name="<%='done_ratio'+issue_id.to_s%>"
-        href="JavaScript:update_done_ratio(
-          '<%=url_for(@link_params.merge(:action=>"popup_update_done_ratio"))%>',
-          '<%=url_for(@link_params.merge(:action=>"ajax_update_done_ratio"))%>',
-          <%=issue_id%>);">
-      [<%=issue.done_ratio%>&#37;]
-    </a>
-    &nbsp;&nbsp;&nbsp;
-
-    <a style="position:absolute;bottom:1px;right:10px;" href="JavaScript:dup_issue('<%=url_for(@link_params.merge(:action=>"ajax_insert_daily"))%>',
-                                   'time_entry_pos<%=hour_id%>',
-                                    <%=issue_id%>);">+</a>
-    <%if @this_uid==@crnt_uid && issue_odr>0 then%>
-      <a style="position:absolute;bottom:1px;right:3px;" href="<%=url_for(@link_params.merge(:issue_del=>issue_id))%>">x</a>
-    <%end%>
-  </div>
-  </td>
-  <td>
-    <%= text_field_tag("time_entry["+hour_id.to_s+"][hours]", hour.hours, :size=>5) %>
-  </td>
-  <td>
-    <%= select_tag "time_entry["+hour_id.to_s+"][activity_id]", options_for_select(activities, hour.activity_id), :required => true %>
-  </td>
-  <td>
-    <%= text_field_tag("time_entry["+hour_id.to_s+"][comments]", hour.comments, :size=>80)%>
-  </td>
-  <% @custom_fields.each do |cf|
-    cfv = hour.custom_field_values.detect {|v| v.custom_field_id == cf.id}
-  %>
-     <td><%= custom_field_tag "time_entry["+hour_id.to_s+"]", cfv %></td>
-  <% end %>
-</tr>
-<%
-   end
-  end
- end
-end
-%>
-<tr align="center" id="time_input_table_bottom" style="background:#ddd;">
-  <td>&nbsp;</td>
-  <td><%=sprintf("%1.1f", @day_pack[:total])%></td>
-  <td>&nbsp;</td>
-  <td>&nbsp;</td>
-  <% @custom_fields.each do |cf| %>
-     <td>&nbsp;</td>
-  <% end %>
-</tr>
+  <tr align="center" id="time_input_table_bottom" class="wt_daily_sum">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><%=sprintf("%1.1f", @day_pack[:total])%></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <% @custom_fields.each do |cf| %>
+      <td>&nbsp;</td>
+    <% end %>
+  </tr>
 </table>

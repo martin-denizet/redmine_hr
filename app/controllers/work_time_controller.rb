@@ -114,36 +114,16 @@ class WorkTimeController < ApplicationController
 
     uid = params[:user]
     add_issue_id = params[:add_issue]
-    count = params[:count]
+    @count = params[:count]
     if @this_uid==@crnt_uid then
       add_issue = Issue.find_by_id(add_issue_id)
       if add_issue && add_issue.visible? then
         prj = add_issue.project
         if User.current.allowed_to?(:log_time, prj) then
-          if add_issue.closed? then
-            @issueHtml = "<del>"+add_issue.to_s+"</del>"
-          else
-            @issueHtml = add_issue.to_s
-          end
-
-          @suffix = "["+add_issue_id+"]["+count+"]"
 
           @activities = []
           prj.activities.each do |act|
             @activities.push([act.name, act.id])
-          end
-
-          @custom_fields = TimeEntryCustomField.find(:all)
-          @custom_fields.each do |cf|
-            def cf.custom_field
-              return self
-            end
-            def cf.value
-              return self.default_value
-            end
-            def cf.true?
-              return self.default_value
-            end
           end
 
           @add_issue = add_issue
@@ -252,12 +232,12 @@ class WorkTimeController < ApplicationController
       style=styles_array.join(" ")
 
       @month_days[date] = {:is_holiday=>is_holiday,:date=>date,:is_selected=>is_selected,:style=>style}
-      puts @month_days
+      #puts @month_days
       
     end
 
     @month_days = @month_days.sort
-    puts @month_days
+    #puts @month_days
     #end edit
     @month_names = l(:wt_month_names).split(',')
     @wday_name = l(:wt_week_day_names).split(',')
@@ -415,12 +395,12 @@ class WorkTimeController < ApplicationController
       end
     end
 
-    # 既存工数の更新
+    # Man-hour update of the existing
     if params["time_entry"] then
       params["time_entry"].each do |id, vals|
         tm = TimeEntry.find(id)
         if vals["hours"] == "" then
-          # 工数指定が空文字の場合は工数項目を削除
+          # If you delete an item is the empty string is specified man-hour man-hour
           tm.destroy
         else
           tm.attributes = vals
@@ -815,26 +795,26 @@ class WorkTimeController < ApplicationController
     @issue_odr_max = dsp_issues.length
 
     # 月内の工数を集計
-    hours = TimeEntry.find(:all, :conditions =>
+    time_entries = TimeEntry.find(:all, :conditions =>
         ["user_id=:uid and spent_on>=:day1 and spent_on<=:day2",
         {:uid => @this_uid, :day1 => @first_date, :day2 => @last_date}])
-    hours.each do |hour|
+    time_entries.each do |time_entry|
       # 表示項目に工数のプロジェクトがあるかチェック→なければ項目追加
-      prj_pack = make_pack_prj(@month_pack, hour.project)
+      prj_pack = make_pack_prj(@month_pack, time_entry.project)
 
       # 表示項目に工数のチケットがあるかチェック→なければ項目追加
-      issue_pack = make_pack_issue(prj_pack, hour.issue)
+      issue_pack = make_pack_issue(prj_pack, time_entry.issue)
 
       issue_pack[:count_hours] += 1
 
       # 合計時間の計算
-      work_time = hour.hours
+      work_time = time_entry.hours
       @month_pack[:total] += work_time
       prj_pack[:total] += work_time
       issue_pack[:total] += work_time
       
       # 日毎の合計時間の計算
-      date = hour.spent_on
+      date = time_entry.spent_on
       @month_pack[:total_by_day][date] ||= 0
       @month_pack[:total_by_day][date] += work_time
       prj_pack[:total_by_day][date] ||= 0
@@ -844,12 +824,12 @@ class WorkTimeController < ApplicationController
 
       if date==@this_date then # 表示日の工数であれば項目追加
         # 表示項目に工数のプロジェクトがあるかチェック→なければ項目追加
-        day_prj_pack = make_pack_prj(@day_pack, hour.project)
+        day_prj_pack = make_pack_prj(@day_pack, time_entry.project)
 
         # 表示項目に工数のチケットがあるかチェック→なければ項目追加
-        day_issue_pack = make_pack_issue(day_prj_pack, hour.issue, NO_ORDER)
+        day_issue_pack = make_pack_issue(day_prj_pack, time_entry.issue, NO_ORDER)
 
-        day_issue_pack[:each_entries][hour.id] = hour # 工数エントリを追加
+        day_issue_pack[:each_entries][time_entry.id] = time_entry # 工数エントリを追加
         day_issue_pack[:total] += work_time
         day_prj_pack[:total] += work_time
         @day_pack[:total] += work_time

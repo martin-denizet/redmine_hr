@@ -73,9 +73,9 @@ tr.wt_calendar-row-wdays{
 
 
 .wt_calendar-selected-day{
-    background-color: #cfc;
-    border-left: 2px solid #090;
-    border-right: 2px solid #090;
+    background-color: #cfc !important;
+    border-left: 2px solid #090 !important;
+    border-right: 2px solid #090 !important;
 }
 th.wt_calendar-selected-day{
     border-top: 2px solid #090;
@@ -98,4 +98,34 @@ th.wt_calendar-selected-day{
     background-color: #B89AFE;
     border-left: 1px solid #9669FE;
     border-right: 1px solid #9669FE;
+}
+
+#time_input_table{
+    white-space: nowrap; 
+}
+#time_input_table td.worked{
+    background-color: #cfc;
+}
+#time_input_table td.not-worked{
+    background-color: #fff;
+}
+
+tr.wt_daily_sum{
+    background-color: #ccc;
+}
+tr.wt_daily_report_project{
+    background-color: #333;
+    color: #fff;
+}
+tr.wt_daily_report_header{
+    border: 1px;
+}
+tr.wt_time_entry_line_even{
+    background-color: #EAF7FB;
+}
+tr.wt_time_entry_line_odd{
+    background-color: #C9EAF3;
+}
+tr.wt_daily_report_new_issue{
+    background-color: #ddf;
 }

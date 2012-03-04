@@ -32,6 +32,7 @@ today=Date.today
     <% end  %>
   </tr>
   <%
+  #For each project
   @month_pack[:odr_prjs].each do |prj_pack|
     next if prj_pack[:count_issues] == 0
     prj = prj_pack[:prj]
@@ -43,15 +44,15 @@ today=Date.today
       <td class="wt_calendar-col-total">
         <%=sprintf("%1.1f",prj_pack[:total])%>
       </td>
+
       <% @month_days.each do |date, day| %>
         <td class="<%= day[:style] %>">
-          <%if prj_pack[:total_by_day].has_key?(date) then%>
-            <%=sprintf("%1.1f", prj_pack[:total_by_day][date])%>
-          <%end%>
+          <%=sprintf("%1.1f", prj_pack[:total_by_day][date]) if prj_pack[:total_by_day].has_key?(date)%>
         </td>
       <% end  %>
     </tr>
     <%
+    #For each Issue of the project
     prj_pack[:odr_issues].each do |issue_pack|
       next if issue_pack[:count_hours] == 0
       issue_id = issue_pack[:issue].id
@@ -61,12 +62,14 @@ today=Date.today
 
       <tr class="wt_calendar-row-<%= cycle("even", "odd") -%>">
         <td class="wt_calendar-issues-column">
-          <div class="<%= 'starting' if today == issue.start_date %> <%= 'ending' if today == issue.due_date %> tooltip">
+          <div class="<%= 'starting ' if today == issue.start_date %><%= 'ending ' if today == issue.due_date %>tooltip">
+            <!--
             <%if @this_uid==@crnt_uid then%>
-              <a href="JavaScript:issue_pos('<%=url_for(@link_params) %>',<%=issue_id%>,<%=issue_odr%>,<%=@issue_odr_max+((issue_odr.to_i<0)?1:0)%>);">
-                <%= (issue_odr.to_i<0) ? "*" : issue_odr %>
-              </a>
+                   <a href="JavaScript:issue_pos('<%=url_for(@link_params) %>',<%=issue_id%>,<%=issue_odr%>,<%=@issue_odr_max+((issue_odr.to_i<0)?1:0)%>);">
+              <%= (issue_odr.to_i<0) ? "*" : issue_odr %>
+                   </a>
             <%end%>
+            -->
             <%= link_to_issue issue, :truncate => 80 %>
             <span class="tip"><%= render_issue_tooltip issue %></span>
             <%= print_issue_cost(issue) %>
@@ -75,23 +78,22 @@ today=Date.today
         <td class="wt_calendar-col-total">
           <%=sprintf("%1.1f", issue_pack[:total])%>
         </td>
-      <% end %>
-      <% # Loop on the days of the things
-      @month_days.each do |date, day|
-        if day[:is_selected] then
-          today_id = 'id="day_scroll_today"'
-        else
-          today_id = ''
-        end
-      %>
-        <td class="<%= day[:style] %>">
-          <%if prj_pack[:total_by_day].has_key?(date) then%>
-            <%=sprintf("%1.1f", prj_pack[:total_by_day][date])%>
-          <%end%>
-        </td>
-      <% end %>
-    </tr>
+        <% # Loop on the days of the month
+        @month_days.each do |date, day|
+        %>
+          <td class="<%= day[:style] %>">
+            <% if issue_pack[:total_by_day].has_key?(date) %>
+              <%=sprintf("%1.1f", issue_pack[:total_by_day][date])%>
+            <% end %>
+          </td>
+          <!--End each day of the issue-->
+        <% end %>
+      </tr>
+      <!--End all Issues of the Project-->
+    <% end %>
+      <!--End all Projects-->
   <% end %>
+  <!--End all Projects-->
   <tr class="wt_calendar-row-total">
     <td class="wt_calendar-issues-column">Total</td>
     <td class="wt_calendar-col-total"><%=sprintf("%1.1f", @month_pack[:total])%></td>
@@ -99,17 +101,17 @@ today=Date.today
     @month_days.each do |date, day|
     %>
       <td class="<%= day[:style] %>">
-        <%if @month_pack[:total_by_day].has_key?(date) then %>
-          <%= sprintf("%1.1f", @month_pack[:total_by_day][date])%>
+        <% if @month_pack[:total_by_day].has_key?(date) %>
+          <%= sprintf("%1.1f", @month_pack[:total_by_day][date]) %>
         <% end %>
       </td>
     <% end %>
   </tr>
 </table>
-<script type="text/javascript">
-  <!--
-  var scr = document.getElementById("day_scroll");
-  var tgt = document.getElementById("day_scroll_today");
-  scr.scrollLeft = tgt.offsetLeft - scr.offsetLeft;
-  -->
-</script>
+<%#*<script type="text/javascript">%>
+<%#*<!--%>
+<%#*var scr = document.getElementById("day_scroll");%>
+<%#*var tgt = document.getElementById("day_scroll_today");%>
+<%#*//scr.scrollLeft = tgt.offsetLeft - scr.offsetLeft;%>
+<%#*-->%>
+<%#*</script>%>
