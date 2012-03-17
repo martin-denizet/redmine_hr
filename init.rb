@@ -1,7 +1,7 @@
 require 'redmine'
 
 # Patches to the Redmine core
-require 'redmine_hr/patches/user_patch'
+require_dependency 'redmine_hr/patches/user_patch'
 require 'redmine_hr/patches/my_controller_patch'
 require 'redmine_hr/patches/custom_fields_helper_patch.rb'
 
@@ -15,7 +15,7 @@ Redmine::Plugin.register :redmine_hr do
   name 'Redmine HR plugin'
   author 'Martin Denizet'
   description 'Allows to give positions to users and generate a Organization Chart'
-  version '0.1.1'
+  version '0.1.2'
   url 'https://github.com/martin-denizet/redmine_hr'
   author_url 'https://github.com/martin-denizet'
 
@@ -33,7 +33,7 @@ Redmine::Plugin.register :redmine_hr do
     :if =>  Proc.new {
     User.current.allowed_to?({:controller => 'hr', :action => 'index'},nil, :global => true)
   },
-    :caption => 'HR'
+    :caption => :label_hr
 
 
 end

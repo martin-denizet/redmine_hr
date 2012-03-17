@@ -22,7 +22,7 @@ module PositionsHelper
   end
 
   def positions_index()
-    link_to l(:label_position_plural), url_for(:controller => 'positions', :action=>'index')
+    link_to l(:label_position_plural), url_for(:controller => 'positions', :action=>'index'), :class => 'positions'
   end
 
 
