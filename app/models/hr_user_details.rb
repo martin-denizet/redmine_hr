@@ -1,4 +1,4 @@
-class UserDetails < ActiveRecord::Base
+class HrUserDetails < ActiveRecord::Base
   unloadable
 
   acts_as_customizable

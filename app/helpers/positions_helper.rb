@@ -1,7 +1,7 @@
 module PositionsHelper
   def positions_for_select(selected)
 
-    positions = Position.find(:all)
+    positions = HrPosition.find(:all)
 
     collection = ['None'=>nil]
 

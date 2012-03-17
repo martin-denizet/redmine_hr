@@ -8,7 +8,7 @@ class PositionsController < ApplicationController
   helper :custom_fields
 
   def index
-    @positions = Position.find(:all,:order => 'position')
+    @positions = HrPosition.find(:all,:order => 'position')
   end
 
 
@@ -19,12 +19,12 @@ class PositionsController < ApplicationController
 
   def new
     if request.get?
-      @position = Position.new()
+      @position = HrPosition.new()
       if params[:manager_id]
         @position.manager_id=params[:manager_id]
       end
     else
-      @position = Position.new(params[:position])
+      @position = HrPosition.new(params[:position])
       @position.title = params[:position][:title]
       @position.manager_id = params[:position][:manager_id]
       if @position.save
@@ -44,10 +44,10 @@ class PositionsController < ApplicationController
 
   def edit
 
-    @position = Position.find(params[:id])
+    @position = HrPosition.find(params[:id])
     if request.post? and @position.update_attributes(params[:position])
 
-      UserPosition.destroy_all( ["position_id=?", @position.id])
+      HrUserPosition.destroy_all( ["position_id=?", @position.id])
 
       (params[:user_id] || []).each { |user_id|
         @position.user_positions.build(:position_id => @position.id, :user_id => user_id)
@@ -64,7 +64,7 @@ class PositionsController < ApplicationController
   end
 
   def destroy
-    @position = Position.find(params[:id])
+    @position = HrPosition.find(params[:id])
     @position.destroy
     redirect_to :action => 'index'
   rescue
@@ -74,11 +74,11 @@ class PositionsController < ApplicationController
 
   def chart
     #@user_positions =  UserPosition.find(:all,:order => "position_id")
-    @users =  User.find(:all,:joins=>:position,:order => "positions.position",:conditions => ["status=?", 1])
+    @users =  User.find(:all,:joins=>:position,:order => "#{HrPosition.table_name}.position",:conditions => ["status=?", 1])
   end
 
   def contact_list
-    @users =  @users =  User.find(:all,:joins=> [:position],:order => "positions.position",:conditions => ["status=?", 1])
+    @users =  @users =  User.find(:all,:joins=> [:position],:order => "#{HrPosition.table_name}.position",:conditions => ["status=?", 1])
   end
 
 

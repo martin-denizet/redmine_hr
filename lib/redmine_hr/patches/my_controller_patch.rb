@@ -20,11 +20,11 @@ module RedmineHr
           account_without_user_details
       
           @user = User.current
-          @user_details = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
-          @user_position =  UserPosition.find(:first, :conditions => ["user_id=?", @user.id])
+          @user_details = HrUserDetails.find(:first, :conditions => ["user_id=?", @user.id])
+          @user_position =  HrUserPosition.find(:first, :conditions => ["user_id=?", @user.id])
 
           if @user_details == nil and @user_position != nil
-            @user_details = UserDetails.new(:user_id => @user.id)
+            @user_details = HrUserDetails.new(:user_id => @user.id)
           end
 
           if request.post? and @user_position != nil

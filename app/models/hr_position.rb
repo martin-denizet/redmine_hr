@@ -1,16 +1,16 @@
-class Position < ActiveRecord::Base
+class HrPosition < ActiveRecord::Base
   unloadable
 
   acts_as_list
 
-  has_many :subordinates, :class_name => "Position",
+  has_many :subordinates, :class_name => "HrPosition",
     :foreign_key => "manager_id"
     
-  belongs_to :manager, :class_name => "Position"
+  belongs_to :manager, :class_name => "HrPosition"
   #   :foreign_key => "manager_id"
 
-  has_many :user_positions,
-    :dependent => :delete_all
+  has_many :user_positions, :class_name => "HrUserPosition",
+    :dependent => :delete_all, :foreign_key => "position_id"
   has_many :users, :through => :user_positions
 
   def to_s

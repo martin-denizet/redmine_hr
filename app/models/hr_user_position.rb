@@ -1,9 +1,9 @@
-class UserPosition < ActiveRecord::Base
+class HrUserPosition < ActiveRecord::Base
   unloadable
 
   belongs_to :position,
     #:dependent => :nullify,
-    :class_name => "Position",
+    :class_name => "HrPosition",
     :foreign_key => "position_id"
     #:association_foreign_key => "position_id"
 
