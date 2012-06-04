@@ -1,0 +1,13 @@
+<ul class="list">
+  <% hr_organizations.each do |hr_organization| %>
+
+    <li class="<%= cycle 'odd', 'even' %>">
+      <%= render :partial => 'organizations_list_line', :locals => { :hr_organization => hr_organization} %>
+
+      <% if hr_organization.children.any? %>
+        <%= render :partial => 'organizations_list', :locals => { :hr_organizations => hr_organization.children} %>
+      <% end %>
+    </li>
+
+  <% end %>
+</ul>

@@ -16,24 +16,20 @@ module RedmineHr
       module InstanceMethods
         # Adds a rates tab to the user administration page
         def account_with_user_details
-      
-          account_without_user_details
-      
+
           @user = User.current
-          @user_details = UserDetails.find(:first, :conditions => ["user_id=?", @user.id])
-          @user_position =  UserPosition.find(:first, :conditions => ["user_id=?", @user.id])
+          @user_details = @user.user_details
+          @user_details = @user.user_details.build unless @user_details
+          if request.post?
+            @user_details.update_attributes(params[:user][:user_details_attributes]) if params[:user][:user_details_attributes]
 
-          if @user_details == nil and @user_position != nil
-            @user_details = UserDetails.new(:user_id => @user.id)
-          end
-
-          if request.post? and @user_position != nil
-            @user_details.attributes = params[:user_details]
-            if not @user_details.save
-              # FIXME block the redirection in case of failure
-              errors = ""
-              @user_details.errors.each{|error| errors+=error.to_s}
-              flash[:error] = errors
+            if @user_details.save
+              account_without_user_details
+            else
+              @user.safe_attributes = params[:user]
+              @user.pref.attributes = params[:pref]
+              @user.pref[:no_self_notified] = (params[:no_self_notified] == '1')
+              @user.notified_project_ids = (@user.mail_notification == 'selected' ? params[:notified_project_ids] : [])
             end
           end
         end

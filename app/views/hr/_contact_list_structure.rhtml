@@ -1,0 +1,11 @@
+<% hr_organizations.each do |hr_organization| %>
+<%= render :partial => 'contact_list_structure_header', :locals => { :structure => hr_organization, :level => level } %>
+<%= render :partial => 'contact_list_user', :locals => { :css_class=> hr_organization.css_class+'_manager', :user_position => hr_organization.manager_user_position, :level => level } %>
+  <% if hr_organization.is_a?(HrDepartment) %>
+    <% hr_organization.user_positions.select{|up| !up.is_manager }.each do |user_position| %>
+      <%= render :partial => 'contact_list_user', :locals => { :css_class=> (cycle 'odd', 'even'), :user_position => user_position, :level => level+1 } %>
+    <% end %>
+  <% end %>
+  <%= (render :partial => 'contact_list_structure', :locals => { :css_class=> (cycle 'odd', 'even'), :hr_organizations => hr_organization.departments.select{|dpt| dpt.root? }, :level => level+1 }) if hr_organization.is_a?(HrOrganization)  %>
+  <%= (render :partial => 'contact_list_structure', :locals => { :css_class=> (cycle 'odd', 'even'), :hr_organizations => hr_organization.children, :level => level+1 }) %>
+<% end  %>

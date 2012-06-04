@@ -17,14 +17,14 @@ module RedmineHr
         def custom_fields_tabs_with_user_details_tab
           tabs = custom_fields_tabs_without_user_details_tab
 
-          tabs << {:name => 'UserDetailsCustomField', :partial => 'custom_fields/index', :label => :label_user_details}
+          tabs << {:name => 'HrUserDetailsCustomField', :partial => 'custom_fields/index', :label => :label_user_details}
           return tabs
         end
 
         def show_value_with_is_public(custom_value)
           value = show_value_without_is_public(custom_value)
           custom_field=custom_value.custom_field
-          if ((custom_field.type=='UserDetailsCustomField' and custom_field.is_public!=true) and not authorized_globally('employees','index'))
+          if ((custom_field.type=='HrUserDetailsCustomField' and custom_field.is_public!=true) and not authorized_globally('employees','index'))
             return l(:label_confidential_information)
           end
           return value

@@ -1,7 +1,0 @@
-<h2><%= hr_index %> &#187; <%= positions_index %> &#187; <%= l(:label_position)%></h2>
-<% labelled_tabular_form_for :position, @position, :url => { :action => "edit" }, :html => { :class => nil } do |f| %>
-	<%= render :partial => 'form', :locals => { :f => f } %>
-	<p>
-		<%= submit_tag l(:button_edit) %>
-	</p>
-<% end %>

@@ -1,0 +1,48 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+<% end %>
+
+<% form_tag(url_for(:controller => 'hr', :action => 'contact_list'), :method => "get")  do %>
+  <label for="id"><%= l(:label_hr_organization) %></label>
+  <%= select_tag(:id, options_for_select(nested_hr_organizations_for_select, @hr_organization.id), :onchange=>'this.form.submit()') %>
+<% end %>
+
+
+<fieldset class="collapsible collapsed">
+  <legend onclick="toggleFieldset(this);"><%= l(:label_options) %></legend>
+  <div style="display: none;">
+    <table>
+      <tr>
+        <td><%= l(:field_column_names) %></td>
+        <td><%#= render :partial => 'columns', :locals => {:query => @query} %></td>
+      </tr>
+    </table>
+  </div>
+</fieldset>
+
+<% if @hr_organization %>
+  <table class="list contact_list">
+    <thead><tr>
+        <th></th>
+        <th><%=l(:label_user)%></th>
+        <th><%=l(:label_hr_job_title)%></th>
+        <th><%=l(:field_mail)%></th>
+
+        <% available_custom_fields=HrUserDetails.new.available_custom_fields %>
+        <% for custom_field in available_custom_fields %>
+          <% if custom_field.is_public || @show_private%>
+            <th>
+              <%=h custom_field.name %>
+            </th>
+          <% end %>
+        <% end %>
+        <th></th>
+      </tr></thead>
+    <tbody>
+      <%= render :partial => 'contact_list_structure', :locals => { :css_class=> (cycle 'odd', 'even'), :hr_organizations => [@hr_organization], :level => 0 } %>
+
+    </tbody>
+  </table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

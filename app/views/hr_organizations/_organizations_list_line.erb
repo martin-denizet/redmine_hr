@@ -1,0 +1,13 @@
+<%=  link_to  hr_organization[:name], hr_organization_path(hr_organization.id)%>
+
+<%=  (hr_organization.manager==NIL)?l(:label_nobody) : (link_to  hr_organization.manager_job_title.title, {:controller => 'hr_organizations', :action => 'edit', :id => hr_organization.manager_id})%>
+
+<% if authorized_globally('hr_organizations','edit') %>
+  <%= link_to  l(:button_edit), edit_hr_organization_path(hr_organization), :class => 'icon icon-edit' %>
+<% end %>
+<% if authorized_globally('hr_organizations','destroy') %>
+  <%= link_to_if authorized_globally('hr_organizations','destroy'), l(:button_delete),  {:controller => 'hr_organizations', :action => 'destroy', :id => hr_organization}, :confirm => l(:text_are_you_sure),  :class => 'icon icon-del' %>
+<% end %>
+<% hr_organization.children do |child| %>
+  <%= render :partial => 'organizations_list', :locals => { :hr_organization => child} %>
+<% end %>

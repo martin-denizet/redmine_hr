@@ -1,0 +1,80 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+<% end %>
+
+<%= error_messages_for 'hr_department' %>
+<% positions = HrJobTitle.find_all_givable
+members = @hr_department.user_positions.select{|up| !up.is_manager?}.sort
+member = @hr_department.manager_user_position
+%>
+
+<div class="splitcontentleft">
+  <% if members.any? %>
+    <table class="list members">
+      <thead><tr>
+          <th><%= l(:label_user) %></th>
+          <th><%= l(:label_hr_job_title) %></th>
+          <th style="width:15%"></th>
+        </tr></thead>
+      <tbody>
+        <tr id="member-<%= member.user_id %>" class="<%= cycle 'odd', 'even' %> member">
+          <td class="user"><%= link_to_user member.user %></td>
+          <td class="roles">
+            <span id="member-<%= member.id %>-roles"><%= member.job_title %> (<%= l(:label_hr_department_manager) %>)</span>
+          </td>
+          <td class="buttons"></td>
+        </tr>
+        <% members.each do |member| %>
+          <% next if member.new_record? %>
+          <tr id="member-<%= member.user_id %>" class="<%= cycle 'odd', 'even' %> member">
+            <td class="user"><%= link_to_user member.user %></td>
+            <td class="roles">
+              <span id="member-<%= member.id %>-roles"><%= member.job_title %></span>
+            </td>
+            <td class="buttons">
+    <%#= link_to_function l(:button_edit), "$('member-#{member.id}-roles').hide(); $('member-#{member.id}-roles-form').show(); return false;", :class => 'icon icon-edit' %>
+              <%= link_to_remote(l(:button_delete), { :url => {:controller => 'hr_user_positions', :action => 'destroy', :id => member, :hr_department_id => @hr_department.id},
+                  :method => :delete
+                }, :title => l(:button_delete),
+                :class => 'icon icon-del') %>
+            </td>
+          </tr>
+        <% end; reset_cycle %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+  <% end %>
+</div>
+
+<% users=candidates_for_department(@hr_department) %>
+
+<div class="splitcontentright user_positions_split">
+  <% if positions.any? && users.any? %>
+    <% remote_form_for(:hr_department, @hr_department, :url => {:controller => 'hr_user_positions', :action => 'create', :id => @hr_department.id}, :method => :post,
+      :loading => '$(\'member-add-submit\').disable();',
+      :complete => 'if($(\'member-add-submit\')) $(\'member-add-submit\').enable();') do |f| %>
+      <fieldset><legend><%=l(:label_member_new)%></legend>
+
+        <p><%= label_tag "principal_search", l(:label_principal_search) %><%= text_field_tag 'principal_search', nil %></p>
+        <%= observe_field(:principal_search,
+          :frequency => 0.5,
+          :update => :users,
+          :url => { :controller => 'hr_user_positions', :action => 'autocomplete_for_user' },
+          :with => 'q')
+      %>
+
+        <div id="users">
+          <%= users_check_box_tags 'hr_department[member_ids][]', users %>
+        </div>
+
+        <p><%= l(:label_hr_job_title_plural) %>:
+          <% positions.each do |position| %>
+            <label><%= radio_button_tag 'hr_department[job_title]', position.id %> <%=h position %></label>
+          <% end %></p>
+
+        <p><%= submit_tag l(:button_add), :id => 'member-add-submit' %></p>
+      </fieldset>
+    <% end %>
+  <% end %>
+</div>

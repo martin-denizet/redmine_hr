@@ -1,13 +1,15 @@
 require 'redmine'
 
 # Patches to the Redmine core
-require_dependency 'redmine_hr/patches/user_patch'
+require 'redmine_hr/patches/user_patch'
 require 'redmine_hr/patches/my_controller_patch'
 require 'redmine_hr/patches/custom_fields_helper_patch.rb'
 
 # Customization hooks
 # It requires the file in redmine_hr/hooks/hooks
 require 'redmine_hr/hooks/hooks'
+
+require 'awesome_nested_set'
 
 RAILS_DEFAULT_LOGGER.info 'Starting HR plugin for RedMine'
 
@@ -37,3 +39,13 @@ Redmine::Plugin.register :redmine_hr do
 
 
 end
+
+#require 'dispatcher'
+#Dispatcher.to_prepare :redmine_hr do
+#  require_dependency 'user'
+#  #SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
+#  User.send(:include, HrUserPatch) unless User.included_modules.include?(HrUserPatch)
+#    User.send(:include, HrUserPatch)
+#  end
+#end
+

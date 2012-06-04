@@ -1,15 +1,27 @@
 # English strings go here for Rails i18n
 en:
-  label_position_plural: "Positions"
-  label_position: "Position"
-  label_position_new: "New Position"
   label_hr: "HR"
-  label_organization_chart: "Organization Chart"
-  label_nobody: "Nobody"
-  field_manager: "Manager"
-  managed_by: "Managed By"
-  label_user_details: "User Details"
-  label_contact_list: "Contact List"
-  label_avatar: "Avatar"
-  label_confidential_information: "Confidential Information"
-  label_employees_information: "Employees Information"
+  label_hr_organization: "Organization"
+  label_hr_organization_plural: "Organizations"
+  label_hr_organization_new: "New organization"
+  label_hr_organization_chart: "Organization Chart"
+  field_organization_id: "Organization"
+
+  label_hr_job_title: "Title"
+  field_job_title: "Title"
+  label_hr_job_title_plural: "Titles"
+  label_hr_job_title_new: "New title"
+
+  label_hr_department: "Department"
+  label_hr_department_plural: "Departments"
+  label_hr_department_new: "New department"
+  button_hr_edit_membership: "Edit members"
+  label_hr_department_manager: "Department Manager"
+
+  button_hr_edit_departments: "Edit departments"
+  label_hr_employees_information: "Employees Information"
+  label_hr_contact_list: "Contact List"
+  field_hr_managed_by: "Managed By"
+
+
+  field_hr_members_count: "Members"

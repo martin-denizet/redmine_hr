@@ -1,0 +1,4 @@
+module HrOrganizationsHelper
+
+
+end

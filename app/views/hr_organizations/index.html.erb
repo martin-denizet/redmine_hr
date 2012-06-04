@@ -1,0 +1,45 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+<% end %>
+<% if authorized_globally('hr_organizations','new') %>
+  <div class="contextual">
+    <%= link_to l(:label_hr_organization_new), {:action => 'new'}, :class => 'icon icon-add' %>
+  </div>
+<% end %>
+<h2><%= hr_index %> &#187 <%= l(:label_hr_organization_plural) %></h2>
+
+<% if @hr_organizations.any? %>
+  <div class="autoscroll">
+    <table class="list">
+      <thead><tr>
+          <th><%=l(:field_name)%></th>
+          <th><%=l(:field_hr_managed_by)%></th>
+          <th><%=l(:field_active)%></th>
+          <th></th>
+        </tr></thead>
+      <tbody>
+        <% project_tree(@hr_organizations) do |organization, level| %>
+          <tr class="<%= cycle("odd", "even") %>  <%= organization.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+            <td class="name"><span><%= link_to_organization(organization, {:action => 'edit'}) %></span></td>
+            <td align="left"><%= link_to_structure_manager(organization) %></td>
+            <td align="center"><%= checked_image organization.active? %></td>
+            <td class="buttons">
+              <% if authorized_globally('hr_departments','index') %>
+                <%= link_to  l(:button_hr_edit_departments), {:controller => 'hr_departments', :action => 'index', :hr_organization => organization}, :class => 'icon icon-hr_departments' %>
+              <% end %>
+              <% if authorized_globally('hr_organizations','edit') %>
+                <%= link_to  l(:button_edit), edit_hr_organization_path(organization), :class => 'icon icon-edit' %>
+              <% end %>
+              <% if authorized_globally('hr_organizations','destroy') %>
+                <%= link_to  l(:button_delete),  {:controller => 'hr_organizations', :action => 'destroy', :id => organization}, :confirm => l(:text_are_you_sure),  :class => 'icon icon-del', :method => :delete %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

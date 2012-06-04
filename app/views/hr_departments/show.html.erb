@@ -1,0 +1,10 @@
+<p>
+  <strong>Name:</strong>
+  <%=h @hr_department.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_hr_department_path(@hr_department) %> |
+  <%= link_to "Destroy", @hr_department, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", hr_departments_path %>
+</p>

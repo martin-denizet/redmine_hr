@@ -1,0 +1,13 @@
+
+  <% hr_user_position = HrUserPosition.new if hr_user_position.nil? %>
+  <p><%= f.select :user_id, users_for_select(hr_user_position.user), :required => true, :selected => hr_user_position.user_id %></p>
+  <p><%= f.select :job_title_id, job_titles_for_select(hr_user_position.job_title), :required => true, :selected => hr_user_position.job_title_id %>
+    <%= prompt_to_remote(image_tag('add.png', :style => 'vertical-align: middle;'),
+      l(:label_position_new),
+      'hr_job_title[title]',
+      {:controller => 'hr_job_titles', :action => 'create', :type => type},
+      :title => l(:label_job_title_new),
+      :tabindex => 199) if authorized_globally('hr_job_titles', 'new')
+  %>
+  </p>
+

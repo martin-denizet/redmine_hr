@@ -21,15 +21,52 @@ padding-left: 20px;
 padding-top: 2px;
 padding-bottom: 3px;
 }
-#hr-menu a.chart {
-background-image: url(../images/sitemap_color.png);
+a.icon-hr_organization_chart {
+background-image: url(../images/chart_organisation.png);
 }
-#hr-menu a.contact_list {
+a.icon-hr_contact_list {
 background-image: url(../images/book_addresses.png);
 }
-#hr-menu a.employees {
+a.icon-hr_employees {
 background-image: url(../images/vcard.png);
 }
-#hr-menu a.positions {
+a.icon-hr_job_titles {
 background-image: url(../images/user_add.png);
+}
+a.icon-hr_organizations {
+background-image: url(../images/building.png);
+}
+a.icon-hr_departments {
+background-image: url(../images/sitemap_color.png);
+}
+a.icon-group-add {
+background-image: url(../images/group_add.png);
+}
+
+div.user_positions_split label{
+    display: block;
+}
+
+tr.hr_organization{
+    text-align: center;
+    font-weight: bold;
+}
+tr.hr_organization_manager{
+    border-style: solid;
+    border-color: #FDBF3B;
+    background-color: #E6FFBF;
+}
+
+tr.hr_department{
+    text-align: center;
+    font-weight: bold;
+}
+tr.hr_department_manager{
+    border-style: solid;
+    border-color: lightsalmon;
+    background-color: wheat;
+}
+
+td.name{
+    width: 80px;
 }

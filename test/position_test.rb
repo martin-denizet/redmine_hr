@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PositionTest < ActiveSupport::TestCase
-  fixtures :positions
+  fixtures :job_titles
 
   # Replace this with your real tests.
   def test_truth
