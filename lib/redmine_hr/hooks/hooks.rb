@@ -24,9 +24,9 @@ module HR
       # by your code. That string will be included into the view
     end
 
-    def view_custom_fields_form_user_details_custom_field(context={ })
+    def view_custom_fields_form_hr_user_details_custom_field(context={ })
       context[:controller].send(:render_to_string, {
-          :partial => "hooks/hr/view_custom_fields_form_user_details",
+          :partial => "hooks/hr/view_custom_fields_form_hr_user_details",
           :locals => context
         })
     end

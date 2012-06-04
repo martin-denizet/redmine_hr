@@ -1,0 +1,11 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+<% end %>
+
+
+<h2><%= @hr_department.name %></h2>
+
+
+<div class="content-department-members">
+<%= render :partial => 'form', :locals => { :hr_department => @hr_department} %>
+</div>

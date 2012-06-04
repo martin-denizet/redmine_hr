@@ -1,0 +1,22 @@
+<%= error_messages_for 'hr_department' %>
+
+<!--[form:hr_department]-->
+<div class="box tabular">
+  <p><%= f.text_field :name, :required => true, :size => 25  %></p>
+  <% user_position = hr_department.manager_user_position.nil? ? HrUserPosition.new : hr_department.manager_user_position %>
+  <% f.fields_for :manager_user_position, user_position, :builder => Redmine::Views::LabelledFormBuilder do |child_form| %>
+    <%= render :partial => 'hr_user_positions/single_form',
+      :locals => { :f => child_form, :hr_user_position => user_position, :type => 'department'} %>
+  <% end %>
+
+  <% if hr_department.new_record? && hr_department.organization_id.nil? %>
+    <p><%= f.select :organization_id, nested_set_options(HrOrganization) {|i| "#{'-' * i.level} #{i.name}"},
+        :label => l(:field_organization_id), :required => true %></p>
+  <% end %>
+  <% if hr_department.new_record? && hr_department.parent_id.nil? %>
+    <p><%= f.select :parent_id, nested_set_options(HrDepartment, hr_department){|i| "#{'-' * i.level} #{i.name}" },
+        :required => false, :selected => hr_department.parent_id, :include_blank => true, :label => l(:field_hr_department_parent_id) %>
+    </p>
+  <% end %>
+</div>
+<!--[eoform:hr_department]-->

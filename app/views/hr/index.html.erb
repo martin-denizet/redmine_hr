@@ -3,24 +3,34 @@
 <% end %>
 <h2><%= l(:label_hr) %></h2>
 <div id="hr-menu">
-  <% if authorized_globally('positions','index') %>
+  <% if authorized_globally('hr_job_titles','index') %>
     <p>
-      <%= positions_index %>
+      <%= link_to l(:label_hr_job_title_plural), {:controller=>'hr_job_titles',:action=>'index'}, :class => 'icon-hr_job_titles' %>
     </p>
   <% end %>
-  <% if authorized_globally('positions','chart') %>
+  <% if authorized_globally('hr_organizations','index') %>
     <p>
-      <%= link_to l(:label_organization_chart), url_for(:controller => 'positions', :action => 'chart'), :class=>'chart' %>
+      <%= link_to l(:label_hr_organization_plural), url_for(:controller => 'hr_organizations', :action => 'index'), :class=>'icon-hr_organizations' %>
     </p>
   <% end %>
-  <% if authorized_globally('positions','contact_list') %>
+  <% if authorized_globally('hr_departments','index') %>
     <p>
-      <%= link_to l(:label_contact_list), url_for(:controller => 'positions', :action => 'contact_list'), :class=>'contact_list' %>
+      <%= link_to l(:label_hr_department_plural), url_for(:controller => 'hr_departments', :action => 'index'), :class=>'icon-hr_departments' %>
     </p>
   <% end %>
-  <% if authorized_globally('employees','index') %>
+  <% if authorized_globally('hr_job_titles','chart') %>
     <p>
-      <%= link_to l(:label_employees_information), url_for(:controller => 'employees', :action => 'index'), :class=>'employees' %>
+      <%= link_to l(:label_hr_organization_chart), url_for(:controller => 'hr_organizations', :action => 'chart'), :class=>'icon-hr_organization_chart' %>
+    </p>
+  <% end %>
+  <% if authorized_globally('hr','contact_list') %>
+    <p>
+      <%= link_to l(:label_hr_contact_list), url_for(:controller => 'hr', :action => 'contact_list'), :class=>'icon-hr_contact_list' %>
+    </p>
+  <% end %>
+  <% if authorized_globally('hr','employees_information') %>
+    <p>
+      <%= link_to l(:label_hr_employees_information), url_for(:controller => 'hr', :action => 'employees_information'), :class=>'icon-hr_employees' %>
     </p>
   <% end %>
 </div>

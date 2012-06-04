@@ -1,0 +1,4 @@
+<h2><%= hr_index %> &#187; <%= hr_departments_index %> &#187; <%= @hr_department.name %></h2>
+<div id="content-department-members">
+<%= render :partial => 'hr_user_positions/multi_form', :locals => {  :hr_department => @hr_department } %>
+</div>

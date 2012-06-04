@@ -1,0 +1,7 @@
+<h2><%= hr_index %> &#187; <%= hr_departments_index %> &#187; <%= @hr_department %></h2>
+<% labelled_tabular_form_for @hr_department do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f, :hr_department => @hr_department } %>
+  <p>
+    <%= submit_tag l(:button_edit) %>
+  </p>
+<% end %>

@@ -1,7 +1,7 @@
-module PositionsHelper
+module HrJobTitlesHelper
   def positions_for_select(selected)
 
-    positions = HrPosition.find(:all)
+    positions = HrJobTitle.find(:all)
 
     collection = ['None'=>nil]
 
@@ -21,8 +21,8 @@ module PositionsHelper
     users
   end
 
-  def positions_index()
-    link_to l(:label_position_plural), url_for(:controller => 'positions', :action=>'index'), :class => 'positions'
+  def job_titles_index()
+    link_to l(:label_hr_job_title_plural), url_for(:controller => 'hr_job_titles', :action=>'index'), :class => 'hr_job_titles'
   end
 
 

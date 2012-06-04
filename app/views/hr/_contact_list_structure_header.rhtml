@@ -1,0 +1,10 @@
+<tr class="<%= structure.css_class %>">
+  <td colspan="<%= HrUserDetails.new.available_custom_fields.select{|v| v.is_public || @show_private}.size+4 %>"><%= structure %></td>
+  <td class="buttons">
+    <% if authorized_globally(structure.css_class,'edit') %>
+      <p>
+          <%= link_to l(:button_edit), url_for(:controller => structure.css_class+'s', :action => 'edit', :id => structure.id ), :class=>'icon icon-edit' %>
+      </p>
+    <% end %>
+  </td>
+</tr>

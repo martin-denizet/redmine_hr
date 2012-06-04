@@ -1,0 +1,13 @@
+<div class="box tabular">
+  <p><%= f.text_field :login, :size => 25, :readonly => 'true', :disabled => 'true' %></p>
+  <p><%= f.text_field :firstname, :readonly => 'true', :disabled => 'true' %></p>
+  <p><%= f.text_field :lastname, :readonly => 'true', :disabled => 'true' %></p>
+  <p><%= f.text_field :mail, :readonly => 'true', :disabled => 'true' %></p>
+  <% @user.custom_field_values.each do |value| %>
+    <p><%= custom_field_tag_with_label :user_custom_fields, value %></p>
+  <% end %>
+  <h3><%= l(:label_user_details)  %> </h3>
+  <% @hr_user_details.custom_field_values.each do |value| %>
+    <p><%= custom_field_tag_with_label :hr_user_details, value %></p>
+  <% end %>
+</div>

@@ -1,0 +1,66 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'hr', :plugin => 'redmine_hr' %>
+  <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<% end %>
+
+<h2><%= hr_index %> &#187; <%= l(:label_hr_organization_chart)%></h2>
+
+<% form_tag(url_for(:controller => 'hr_organizations', :action => 'chart'), :method => "get")  do %>
+  <label for="id"><%= l(:label_hr_organization) %></label>
+  <%= select_tag(:id, options_for_select(nested_hr_organizations_for_select, @hr_organization.id), :onchange=>'this.form.submit()') %>
+<% end %>
+
+<% if @hr_organization %>
+  <script type='text/javascript'>
+    google.load('visualization', '1', {packages:['orgchart']});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('string', 'Manager');
+      data.addColumn('string', 'ToolTip');
+
+  <% positions=@hr_organization.chart('') %>
+  <%# structure_user_positions={} %>
+    data.addRows([
+  <%
+  row_dpt = {}
+  i=0
+%>
+  <% positions.each do |position| %>
+    <%= render :partial => 'chart_user', :locals => { :hash => position } %>
+    <%
+
+    row_dpt[position[:parent].to_s] = [] unless row_dpt[position[:parent].to_s]
+    row_dpt[position[:parent].to_s] << i.to_s
+    i+=1
+    %>
+  <% end %>
+    ]);
+<%#= row_dpt.inspect %>
+  <% i=0 %>
+
+  <% row_dpt.each do |parent,row_ids| %>
+    <%= row_ids.join(',') %>
+    <% style=rows_style[i] %>
+    <% i=0 unless rows_style[i] %>
+    <% style=rows_style[i] %>
+    <% i+=1 %>
+    <% row_ids.uniq.each do |row_id| %>
+      <% if row_id.to_s!='' %>
+          data.setRowProperty(
+        <%=  row_id.to_s %> , 'style', 'background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(<%= style[:style][:from] %>), to(<%= style[:style][:to] %>));border: 2px solid <%= style[:style][:border] %>'
+        );
+      <% end %>
+    <% end %>
+  <% end %>
+
+    var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+    chart.draw(data, {allowHtml:true});
+  }
+  </script>
+  <div id='chart_div'></div>
+
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

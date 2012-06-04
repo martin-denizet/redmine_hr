@@ -1,0 +1,45 @@
+<% if authorized_globally('positions','new') %>
+  <div class="contextual">
+    <%= link_to l(:label_hr_job_title_new), {:action => 'new'}, :class => 'icon icon-add' %>
+  </div>
+<% end %>
+<h2><%= hr_index %> &#187 <%= l(:label_hr_job_title_plural) %></h2>
+
+<% if @job_titles.any? %>
+  <table class="list positions">
+    <thead><tr>
+        <th><%=l(:field_name)%></th>
+        <th><%=l(:button_sort)%></th>
+        <th><%=l(:label_user_plural)%></th>
+        <th></th>
+      </tr></thead>
+    <tbody>
+      <% @job_titles.each do |job_title| %>
+        <tr class="<%= cycle 'odd', 'even' %>">
+          <td>
+            <%=  link_to  job_title[:title], {:controller => 'hr_job_titles', :action => 'edit', :id => job_title}%>
+          </td>
+          <td align="center" style="width:15%;"><%= reorder_links('position', {:action => 'edit', :id => job_title}) %></td>
+          <td align="center">
+            <% job_title.users.each do |user| %>
+              <p>
+                <%= link_to_user(user) %>
+              </p>
+            <% end %>
+          </td>
+          <td class="buttons">
+            <% if authorized_globally('hr_job_titles','edit') %>
+              <%= link_to  l(:button_edit), {:controller => 'hr_job_titles', :action => 'edit', :id => job_title}, :class => 'icon icon-edit' %>
+            <% end %>
+            <% if authorized_globally('hr_job_titles','destroy') %>
+              <%= link_to_if authorized_globally('hr_job_titles','destroy'), l(:button_delete),
+                {:controller => 'hr_job_titles', :action => 'destroy', :id => job_title}, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+  <% end %>
