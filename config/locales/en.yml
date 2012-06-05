@@ -25,3 +25,7 @@ en:
 
 
   field_hr_members_count: "Members"
+  
+  label_hr_user_details: "User Details"
+
+  label_hr_no_hr_organization: "You must create one organization before being eable to create a department!"

@@ -6,7 +6,7 @@
   <% @user.custom_field_values.each do |value| %>
     <p><%= custom_field_tag_with_label :user_custom_fields, value %></p>
   <% end %>
-  <h3><%= l(:label_user_details)  %> </h3>
+  <h3><%= l(:label_hr_user_details)  %> </h3>
   <% @hr_user_details.custom_field_values.each do |value| %>
     <p><%= custom_field_tag_with_label :hr_user_details, value %></p>
   <% end %>

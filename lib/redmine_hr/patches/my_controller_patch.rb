@@ -16,7 +16,7 @@ module RedmineHr
       module InstanceMethods
         # Adds a rates tab to the user administration page
         def account_with_user_details
-
+          (User.send(:include, HrUserPatch) unless User.included_modules.include?(HrUserPatch)) if RAILS_ENV == 'development'
           @user = User.current
           @user_details = @user.user_details
           @user_details = @user.user_details.build unless @user_details

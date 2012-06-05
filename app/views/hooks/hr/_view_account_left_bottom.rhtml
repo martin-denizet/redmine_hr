@@ -1,4 +1,4 @@
-<h3><%= l(:label_user_details) %></h3>
+<h3><%= l(:label_hr_user_details) %></h3>
 <ul>
   <%  user_details = HrUserDetails.find(:first,:conditions => ["user_id=?", @user]) %>
   <% if user_details!=nil %>

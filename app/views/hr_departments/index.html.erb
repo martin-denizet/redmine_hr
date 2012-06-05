@@ -7,44 +7,48 @@
   </div>
 <% end %>
 <h2><%= hr_index %> &#187 <%= l(:label_hr_department_plural) %></h2>
-<% form_tag(url_for(:controller => 'hr_departments', :action => 'index'), :method => "get")  do %>
-  <label for="hr_organization"><%= l(:label_hr_organization) %></label>
-  <%= select_tag(:hr_organization, options_for_select(nested_hr_organizations_for_select, @hr_organization.id), :onchange=>'this.form.submit()') %>
-<% end %>
-<% if @hr_departments.any? %>
-  <div class="autoscroll">
-    <table class="list">
-      <thead><tr>
-          <th><%=l(:field_name)%></th>
-          <th><%=l(:field_hr_managed_by)%></th>
-          <th><%=l(:field_active)%></th>
-          <th><%=l(:field_hr_members_count)%></th>
-          <th></th>
-        </tr></thead>
-      <tbody>
-        <% project_tree(@hr_departments) do |organization, level| %>
-          <tr class="<%= cycle("odd", "even") %>  <%= organization.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
-            <td class="name"><span><%= link_to_department(organization, {:action => 'edit'}) %></span></td>
-            <td align="left"><%= link_to_structure_manager(organization) %></td>
-            <td align="center"><%= checked_image organization.active? %></td>
-            <td align="center"><%= organization.members.size %></td>
-            <td class="buttons">
-              <% if authorized_globally('hr_user_positions','edit') %>
-                <%= link_to  l(:button_hr_edit_membership), {:controller => 'hr_user_positions', :action => 'membership', :id => organization}, :class => 'icon icon-group-add' %>
-              <% end %>
-              <% if authorized_globally('hr_departments','edit') %>
-                <%= link_to  l(:button_edit), edit_hr_department_path(organization), :class => 'icon icon-edit' %>
-              <% end %>
-              <% if authorized_globally('hr_departments','destroy') %>
-                <%= link_to l(:button_delete), {:controller => 'hr_departments', :action => 'destroy', :id => organization}, :confirm => l(:text_are_you_sure),  :class => 'icon icon-del', :method => :delete %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+<% if @hr_organization %>
+  <% form_tag(url_for(:controller => 'hr_departments', :action => 'index'), :method => "get")  do %>
+    <label for="hr_organization"><%= l(:label_hr_organization) %></label>
+    <%= select_tag(:hr_organization, options_for_select(nested_hr_organizations_for_select, @hr_organization.id), :onchange=>'this.form.submit()') %>
+  <% end %>
+  <% if @hr_departments.any? %>
+    <div class="autoscroll">
+      <table class="list">
+        <thead><tr>
+            <th><%=l(:field_name)%></th>
+            <th><%=l(:field_hr_managed_by)%></th>
+            <th><%=l(:field_active)%></th>
+            <th><%=l(:field_hr_members_count)%></th>
+            <th></th>
+          </tr></thead>
+        <tbody>
+          <% project_tree(@hr_departments) do |organization, level| %>
+            <tr class="<%= cycle("odd", "even") %>  <%= organization.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+              <td class="name"><span><%= link_to_department(organization, {:action => 'edit'}) %></span></td>
+              <td align="left"><%= link_to_structure_manager(organization) %></td>
+              <td align="center"><%= checked_image organization.active? %></td>
+              <td align="center"><%= organization.members.size %></td>
+              <td class="buttons">
+                <% if authorized_globally('hr_user_positions','edit') %>
+                  <%= link_to  l(:button_hr_edit_membership), {:controller => 'hr_user_positions', :action => 'membership', :id => organization}, :class => 'icon icon-group-add' %>
+                <% end %>
+                <% if authorized_globally('hr_departments','edit') %>
+                  <%= link_to  l(:button_edit), edit_hr_department_path(organization), :class => 'icon icon-edit' %>
+                <% end %>
+                <% if authorized_globally('hr_departments','destroy') %>
+                  <%= link_to l(:button_delete), {:controller => 'hr_departments', :action => 'destroy', :id => organization}, :confirm => l(:text_are_you_sure),  :class => 'icon icon-del', :method => :delete %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
+  <% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+  <% end %>
 <% else %>
-  <p class="nodata"><%= l(:label_no_data) %></p>
+  <p id="errorExplanation"><%= l(:label_hr_no_hr_organization) %> <%= link_to l(:label_hr_organization_new), {:action => 'new'}, :class => 'icon icon-add' %></p>
 <% end %>

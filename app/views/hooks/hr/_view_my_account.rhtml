@@ -1,13 +1,10 @@
-<%# user_details = HrUserDetails.new %>
 <% user_details = @user.user_details.nil? ? HrUserDetails.new(:user => @user) : @user.user_details %>
 <% @user.user_details = user_details %>
-<%# f.fields_for :user_details, user_details, :builder => Redmine::Views::LabelledFormBuilder do |child_form| %>
 
-<h3><%= l(:label_user_details) %></h3>
+<h3><%= l(:label_hr_user_details) %></h3>
 <%  user_details.custom_field_values.select{|custom_value| custom_value.editable? == false}.each do |value| %>
   <p><%=  custom_field_label_tag value.custom_field.name, value %><%=h show_value_without_is_public(value) %></p>
 <% end %>
 <%  user_details.custom_field_values.select(&:editable?).each do |value| %>
   <p><%= custom_field_tag_with_label 'user[user_details_attributes]', value %></p>
 <% end %>
-<%# end %>

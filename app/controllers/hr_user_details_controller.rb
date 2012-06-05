@@ -7,25 +7,6 @@ class HrUserDetailsController < ApplicationController
 
   before_filter :authorize_global
 
-  #  def new
-  #    @user= User.find(params[:user_id])
-  #    @hr_user_details = HrUserDetails.new(:user => @user)
-  #  end
-  #
-  #  def create
-  #    @user= User.find(params[:user_id])
-  #    @hr_user_details = HrUserDetails.new(params[:hr_user_details])
-  #    if @hr_user_details.save
-  #      flash[:notice] = "Successfully created User Details."
-  #      render :action => 'show'
-  #    else
-  #      render :action => 'new'
-  #    end
-  #  end
-
-  #  def show
-  #    @user = User.find(params[:id])
-  #  end
 
   def edit
     @user = User.find(params[:id])
