@@ -24,6 +24,7 @@ Redmine::Plugin.register :redmine_hr do
   project_module :hr do
 
     permission :manage_hr_structures, {
+      :hr => :index,
       :hr_job_titles => [:new,:create,:edit,:update,:destroy],
       :hr_organizations => [:new,:create,:edit,:update,:destroy],
       :hr_departments => [:new,:create,:edit,:update,:destroy],
@@ -44,13 +45,3 @@ Redmine::Plugin.register :redmine_hr do
 
 
 end
-
-#require 'dispatcher'
-#Dispatcher.to_prepare :redmine_hr do
-#  require_dependency 'user'
-#  #SearchController.send(:include, RedmineEquipmentStatusViewer::Patches::SearchControllerPatch)
-#  User.send(:include, HrUserPatch) unless User.included_modules.include?(HrUserPatch)
-#    User.send(:include, HrUserPatch)
-#  end
-#end
-
