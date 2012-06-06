@@ -4,7 +4,7 @@ class HrOrganization < HrOrganizationalStructure
   
 
   #attr_accessible :name
-  has_many :departments,  :class_name => "HrDepartment", :foreign_key => "organization_id", :dependent => :destroy
+  has_many :departments, :class_name => "HrDepartment", :foreign_key => "organization_id", :dependent => :destroy
 
   has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE", :dependent => :destroy
 
@@ -18,7 +18,7 @@ class HrOrganization < HrOrganizationalStructure
   before_save :set_manager_true
 
   def assign_parent(new_parent_id)
-    if(new_parent_id.nil?||new_parent_id.to_i<0)
+    if(new_parent_id.nil?||new_parent_id.to_i<=0)
       return false
     else
       new_parent=HrOrganization.find(new_parent_id)

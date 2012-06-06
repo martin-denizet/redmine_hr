@@ -35,7 +35,7 @@ class HrDepartment < HrOrganizationalStructure
   before_save :set_manager_true
 
   def assign_parent(new_parent_id)
-    if(new_parent_id.nil?||new_parent_id.to_i<0)
+    if(new_parent_id.nil?||new_parent_id.to_i<=0)
       return false
     end
     new_parent=HrDepartment.find(new_parent_id)
