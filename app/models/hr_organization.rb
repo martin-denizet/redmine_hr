@@ -5,23 +5,12 @@ class HrOrganization < HrOrganizationalStructure
 
   #attr_accessible :name
   has_many :departments,  :class_name => "HrDepartment", :foreign_key => "organization_id", :dependent => :destroy
-  
 
-  #has_many :members,  :class_name => "HrUserPositions", :through => :departments, :source => :members
-
-  #has_many :members,  :class_name => "User", :foreign_key => "organization_id"
-
-  #  has_many :members,  :class_name => "User", :through => :user_positions, :condition => "is_manager=FALSE"
-  #
-  #  has_one :manager,  :class_name => "User", :through => :user_positions, :condition => "is_manager=TRUE AND department_id IS NULL"
-
-  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE"
+  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE", :dependent => :destroy
 
   has_one :manager,  :class_name => 'User', :through => :manager_user_position, :source => :user
 
   has_one :manager_job_title,  :class_name => 'HrJobTitle', :through => :manager_user_position, :source => :job_title
-
-  #has_many :members,  :class_name => 'User', :through => :user_positions, :source => :user
 
   accepts_nested_attributes_for :manager_user_position, :reject_if => :all_blank
 

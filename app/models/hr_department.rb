@@ -14,7 +14,7 @@ class HrDepartment < HrOrganizationalStructure
 
   has_many :members,  :class_name => 'User', :through => :user_positions, :source => :user
 
-  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE"
+  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE", :dependent => :destroy
 
   has_one :manager,  :class_name => 'User', :through => :manager_user_position, :source => :user
 
