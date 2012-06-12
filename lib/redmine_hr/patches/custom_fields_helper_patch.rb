@@ -24,7 +24,7 @@ module RedmineHr
         def show_value_with_is_public(custom_value)
           value = show_value_without_is_public(custom_value)
           custom_field=custom_value.custom_field
-          if ((custom_field.type=='HrUserDetailsCustomField' and custom_field.is_public!=true) and not authorized_globally('employees','index'))
+          if ((custom_field.type=='HrUserDetailsCustomField' and custom_field.is_public!=true) and not authorized_globally('hr','employees_information'))
             return l(:label_confidential_information)
           end
           return value
