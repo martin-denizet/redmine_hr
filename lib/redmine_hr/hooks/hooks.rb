@@ -6,7 +6,7 @@ module HR
       context[:controller].send(:render_to_string, {
           :partial => "hooks/hr/view_my_account",
           :locals => context
-        })
+        }) if User.current.user_position
 
       # Instead of the above statement, you could return any string generated
       # by your code. That string will be included into the view
@@ -35,7 +35,7 @@ module HR
       context[:controller].send(:render_to_string, {
           :partial => "hooks/hr/view_my_account_contextual",
           :locals => context
-        })
+        }) if User.current.user_position
     end
   end
 end
