@@ -56,7 +56,7 @@ class HrDepartmentsController < ApplicationController
   def update
     @hr_department = HrDepartment.find(params[:id])
     if @hr_department.update_attributes(params[:hr_department])
-      @hr_department.move_to_child_of(params[:hr_department][:parent_id])
+      @hr_department.move_to_child_of(params[:hr_department][:parent_id]) if params[:hr_department][:parent_id]
       flash[:notice] = l(:notice_successful_update)
       redirect_to @hr_department
     else

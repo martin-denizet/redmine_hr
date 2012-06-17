@@ -14,7 +14,7 @@ class HrDepartment < HrOrganizationalStructure
 
   has_many :members,  :class_name => 'User', :through => :user_positions, :source => :user
 
-  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE"
+  has_one :manager_user_position,  :class_name => "HrUserPosition", :as => :hr_structure, :conditions => "is_manager = TRUE", :dependent => :destroy
 
   has_one :manager,  :class_name => 'User', :through => :manager_user_position, :source => :user
 
@@ -35,7 +35,7 @@ class HrDepartment < HrOrganizationalStructure
   before_save :set_manager_true
 
   def assign_parent(new_parent_id)
-    if(new_parent_id.nil?||new_parent_id.to_i<0)
+    if(new_parent_id.nil?||new_parent_id.to_i<=0)
       return false
     end
     new_parent=HrDepartment.find(new_parent_id)

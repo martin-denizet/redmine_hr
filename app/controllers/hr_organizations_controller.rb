@@ -38,7 +38,7 @@ class HrOrganizationsController < ApplicationController
   def update
     @hr_organization = HrOrganization.find(params[:id])
     if @hr_organization.update_attributes(params[:hr_organization])
-      @hr_organization.assign_parent(params[:hr_organization][:parent_id])
+      @hr_organization.assign_parent(params[:hr_organization][:parent_id]) if params[:hr_organization][:parent_id]
       flash[:notice] = l(:notice_successful_update)
       redirect_to :action => 'index'
     else
@@ -49,7 +49,7 @@ class HrOrganizationsController < ApplicationController
   def destroy
     @hr_organization = HrOrganization.find(params[:id])
     @hr_organization.destroy
-    flash[:notice] = "Successfully destroyed hr department."
+    flash[:notice] = "Successfully destroyed hr organization."
     redirect_to hr_organizations_url
   end
 

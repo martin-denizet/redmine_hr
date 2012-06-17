@@ -1,3 +1,31 @@
 # Chinese strings go here for Rails i18n
 zh:
+  label_hr: "HR"
+  label_hr_organization: "组织结构"
+  label_hr_organization_plural: "组织结构"
+  label_hr_organization_new: "新建组织结构"
+  label_hr_organization_chart: "组织结构图"
+  field_organization_id: "组织结构"
+
+  label_hr_job_title: "职位"
+  field_job_title: "职位"
+  label_hr_job_title_plural: "职位"
+  label_hr_job_title_new: "新建职位"
+
+  label_hr_department: "部门"
+  label_hr_department_plural: "部门"
+  label_hr_department_new: "新建部门"
+  button_hr_edit_membership: "编辑部门员工"
+  label_hr_department_manager: "部门经理"
+
+  button_hr_edit_departments: "编辑部门"
+  label_hr_employees_information: "员工信息"
+  label_hr_contact_list: "联系人列表"
+  field_hr_managed_by: "管理人员"
+
+
+  field_hr_members_count: "员工"
   
+  label_hr_user_details: "用户详细信息"
+
+  label_hr_no_hr_organization: "在创建部门前，您必须先创建至少一个组织结构！"  

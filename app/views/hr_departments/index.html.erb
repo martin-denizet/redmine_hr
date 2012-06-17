@@ -50,5 +50,5 @@
     <p class="nodata"><%= l(:label_no_data) %></p>
   <% end %>
 <% else %>
-  <p id="errorExplanation"><%= l(:label_hr_no_hr_organization) %> <%= link_to l(:label_hr_organization_new), {:action => 'new'}, :class => 'icon icon-add' %></p>
+  <p id="errorExplanation"><%= l(:label_hr_no_hr_organization) %> <%= link_to l(:label_hr_organization_new), {:controller => 'hr_organizations',:action => 'new'}, :class => 'icon icon-add' %></p>
 <% end %>
