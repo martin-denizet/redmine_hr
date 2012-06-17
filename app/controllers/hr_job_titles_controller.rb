@@ -51,8 +51,8 @@ class HrJobTitlesController < ApplicationController
   end
 
   def create
-    @job_title = HrJobTitle.new(params[:hr_job_title])
-    if @job_title.save
+    @hr_job_title = HrJobTitle.new(params[:hr_job_title])
+    if @hr_job_title.save
       respond_to do |format|
         format.html do
           flash[:notice] = l(:notice_successful_create)
@@ -62,7 +62,7 @@ class HrJobTitlesController < ApplicationController
           # IE doesn't support the replace_html rjs method for select box options
           render(:update) {|page| page.replace "hr_#{params[:type]}_manager_user_position_attributes_job_title_id",
             content_tag('select', '<option></option>' +
-                options_from_collection_for_select(HrJobTitle.find(:all), 'id', 'title', @job_title.id),
+                options_from_collection_for_select(HrJobTitle.find(:all), 'id', 'title', @hr_job_title.id),
               :id => "hr_#{params[:type]}_manager_user_position_attributes_job_title_id",
               :name => "hr_#{params[:type]}[manager_user_position_attributes][job_title_id]")
           }
@@ -72,7 +72,7 @@ class HrJobTitlesController < ApplicationController
       respond_to do |format|
         format.html { render :action => 'new'}
         format.js do
-          render(:update) {|page| page.alert(@job_title.errors.full_messages.join('\n')) }
+          render(:update) {|page| page.alert(@hr_job_title.errors.full_messages.join('\n')) }
         end
       end
     end
