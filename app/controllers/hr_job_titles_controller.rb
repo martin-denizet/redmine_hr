@@ -72,7 +72,7 @@ class HrJobTitlesController < ApplicationController
       respond_to do |format|
         format.html { render :action => 'new'}
         format.js do
-          render(:update) {|page| page.alert(@hr_job_title.errors.full_messages.join('\n')) }
+          render(:update) {|page| page.alert(@hr_job_title.errors.full_messages.join("\n")) }
         end
       end
     end
