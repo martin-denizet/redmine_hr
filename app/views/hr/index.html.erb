@@ -18,7 +18,7 @@
       <%= link_to l(:label_hr_department_plural), url_for(:controller => 'hr_departments', :action => 'index'), :class=>'icon-hr_departments' %>
     </p>
   <% end %>
-  <% if authorized_globally('hr_job_titles','chart') %>
+  <% if authorized_globally('hr_organizations','chart') %>
     <p>
       <%= link_to l(:label_hr_organization_chart), url_for(:controller => 'hr_organizations', :action => 'chart'), :class=>'icon-hr_organization_chart' %>
     </p>
