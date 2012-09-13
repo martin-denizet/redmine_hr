@@ -37,7 +37,7 @@ class HrOrganization < HrOrganizationalStructure
 
       nodes.concat(manager_user_position.chart(parent,self))
 
-      self.departments.each do |member|
+      self.departments.select{|d| d.root? }.each do |member|
         nodes.concat(member.chart(manager_user_position.id))
       end
 
@@ -45,7 +45,7 @@ class HrOrganization < HrOrganizationalStructure
         nodes.concat(child.chart(manager_user_position.id))
       end
     end
-    nodes
+    nodes.uniq
   end
 
   def css_class
