@@ -1,5 +1,6 @@
 <% available_custom_fields=HrUserDetails.new.available_custom_fields %>
 <% user=user_position.user %>
+<% if user %>
 <tr class="<%= css_class %> project <%= level>0 ? "idnt idnt-#{level} child":'root' %>">
   <td class="name"><span><%= avatar(user, :size => "60") %></span></td>
   <td><%= link_to_user user %></td>
@@ -33,3 +34,4 @@
   </td>
 
 </tr>
+<% end %>
