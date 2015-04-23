@@ -22,7 +22,7 @@ class HrUserPosition < ActiveRecord::Base
 
 
   def <=>(another)
-    self.user <=> another.user
+    self.user_id <=> another.user_id unless (self.user_id.nil? or another.user_id.nil?)
   end
 
   def chart_caption
